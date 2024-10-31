@@ -3,7 +3,7 @@
 <template>
   <main>
     <div>
-      <p>Accueil</p>
+      <p>Accueil View</p>
     </div>
   </main>
 </template>
