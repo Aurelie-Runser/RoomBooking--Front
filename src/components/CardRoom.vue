@@ -10,7 +10,7 @@ defineProps<{
 
 <template>
   <div class="flex max-w-lg gap-4 hover:bg-cyan-50 cursor-pointer">
-    <div class="aspect-square w-1/3 flex-none h-full">
+    <div class="w-1/3">
       <img
         class="w-full h-full object-cover"
         :src="`/roomsPictures/${room.picture}.jpg`"
@@ -18,15 +18,15 @@ defineProps<{
       />
     </div>
 
-    <div class="flex flex-col justify-between">
+    <div class="flex flex-col justify-between pr-1">
       <h4 class="w-full text-2xl font-semibold">{{ room.name }}</h4>
       <p class="flex gap-1 items-center mb-2">
         <IconPing /><span v-html="room.adress"></span>
       </p>
 
-      <div class="flex flex-wrap gap-x-6 items-center">
+      <div class="flex flex-wrap gap-x-6 items-center mb-2">
         <p>{{ room.groupe }}</p>
-        <p class="flex gap-1 items-center mb-2">
+        <p class="flex gap-1 items-center">
           <IconPeoples />{{ room.capacite }}
         </p>
         <p class="flex gap-1 items-center">

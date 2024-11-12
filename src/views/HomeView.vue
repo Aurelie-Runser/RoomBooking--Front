@@ -5,7 +5,7 @@ const listTestRoom = [
   {
     name: 'Pièce n°1',
     picture: 'room1_small',
-    adress: '20 rue de la joie, 67100 Strasbourg, <br/> étage 2 port 5',
+    adress: '20 rue de la joie, 67100 Strasbourg',
     groupe: 'Réunion',
     capacite: 10,
     superficie: '30x50',
@@ -18,7 +18,7 @@ const listTestRoom = [
   {
     name: 'Pièce n°2',
     picture: 'room2_small',
-    adress: '20 rue de la joie, 67100 Strasbourg, <br/> étage 2 port 5',
+    adress: '20 rue de la joie, 67100 Strasbourg',
     groupe: 'Détente',
     capacite: 10,
     superficie: '30x50',
@@ -31,7 +31,7 @@ const listTestRoom = [
   {
     name: 'Pièce n°3',
     picture: 'room3_small',
-    adress: '20 rue de la joie, 67100 Strasbourg, <br/> étage 2 port 5',
+    adress: '20 rue de la joie, 67100 Strasbourg',
     groupe: 'Réunion',
     capacite: 10,
     superficie: '30x50',
@@ -44,7 +44,7 @@ const listTestRoom = [
   {
     name: 'Pièce n°4',
     picture: 'room4_small',
-    adress: '20 rue de la joie, 67100 Strasbourg, <br/> étage 2 port 5',
+    adress: '20 rue de la joie, 67100 Strasbourg',
     groupe: 'Détente',
     capacite: 10,
     superficie: '30x50',
@@ -57,7 +57,7 @@ const listTestRoom = [
   {
     name: 'Pièce n°5',
     picture: 'room5_small',
-    adress: '20 rue de la joie, 67100 Strasbourg, <br/> étage 2 port 5',
+    adress: '20 rue de la joie, 67100 Strasbourg',
     groupe: 'Réunion',
     capacite: 10,
     superficie: '30x50',
