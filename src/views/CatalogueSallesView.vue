@@ -73,7 +73,7 @@ const listTestRoom = [
 
 <template>
   <main>
-    <h1>Catalogue de Salles</h1>
+    <h1 class="text-4xl font-bold text-center my-4">Catalogue de Salles</h1>
 
     <ListCard :listRoom="listTestRoom" />
   </main>
