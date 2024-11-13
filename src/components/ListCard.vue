@@ -7,7 +7,9 @@ defineProps<{
 </script>
 
 <template>
-  <ul class="flex flex-col gap-4 w-fit m-auto p-2">
+  <ul
+    class="w-full m-auto p-2 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-x-6 gap-y-3 place-items-center"
+  >
     <li v-for="(room, index) in listRoom" :key="index">
       <CardSalle :room="room" />
     </li>
