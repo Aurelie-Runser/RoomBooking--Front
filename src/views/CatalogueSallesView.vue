@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import ListCard from '@/components/ListCard.vue'
-import FicheRoom from '@/components/FicheRoom.vue'
 
-const listTestRoom = [
+const listTestSalles = [
   {
+    slug: 'piece1',
     name: 'Pièce n°1',
     picture: 'room1_small',
     adress: '20 rue de la joie, 67100 Strasbourg',
@@ -17,6 +17,7 @@ const listTestRoom = [
     ],
   },
   {
+    slug: 'piece2',
     name: 'Pièce n°2',
     picture: 'room2_small',
     adress: '20 rue de la joie, 67100 Strasbourg',
@@ -30,6 +31,7 @@ const listTestRoom = [
     ],
   },
   {
+    slug: 'piece3',
     name: 'Pièce n°3',
     picture: 'room3_small',
     adress: '20 rue de la joie, 67100 Strasbourg',
@@ -43,6 +45,7 @@ const listTestRoom = [
     ],
   },
   {
+    slug: 'piece4',
     name: 'Pièce n°4',
     picture: 'room4_small',
     adress: '20 rue de la joie, 67100 Strasbourg',
@@ -56,6 +59,7 @@ const listTestRoom = [
     ],
   },
   {
+    slug: 'piece5',
     name: 'Pièce n°5',
     picture: 'room5_small',
     adress: '20 rue de la joie, 67100 Strasbourg',
@@ -75,6 +79,6 @@ const listTestRoom = [
   <main>
     <h1 class="text-4xl font-bold text-center my-4">Catalogue de Salles</h1>
 
-    <ListCard :listRoom="listTestRoom" />
+    <ListCard :listSalles="listTestSalles" />
   </main>
 </template>

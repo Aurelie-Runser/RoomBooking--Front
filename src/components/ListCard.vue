@@ -2,7 +2,7 @@
 import CardSalle from '@/components/CardSalle.vue'
 
 defineProps<{
-  listRoom: Array<T>
+  listSalles: Array<T>
 }>()
 </script>
 
@@ -10,8 +10,8 @@ defineProps<{
   <ul
     class="w-full m-auto p-2 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-x-6 gap-y-3 place-items-center"
   >
-    <li v-for="(room, index) in listRoom" :key="index">
-      <CardSalle :room="room" />
+    <li v-for="(salle, index) in listSalles" :key="index">
+      <CardSalle :salle="salle" />
     </li>
   </ul>
 </template>
