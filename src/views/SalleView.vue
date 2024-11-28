@@ -87,8 +87,9 @@ onMounted(() => {
   salleFind.value = true
 })
 </script>
+
 <template>
-  <main class="h-[200vh]" v-if="salleFind">
+  <main v-if="salleFind">
     <div v-if="salle">
       <h1 class="text-4xl font-bold text-center my-4">
         {{ salle.name }}
@@ -115,6 +116,12 @@ onMounted(() => {
               </li>
             </ul>
           </div>
+
+          <RouterLink :to="`/salle/${salle.slug}/reservation`">
+            <button class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
+              Réserver
+            </button>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -125,12 +132,12 @@ onMounted(() => {
       </p>
 
       <div class="flex justify-center gap-6">
-        <RouterLink to="/" class="p-4 bg-blue-200 hover:bg-blue-400 rounded-md">
+        <RouterLink to="/" class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
           Accueil
         </RouterLink>
         <RouterLink
           to="/catalogue-salles"
-          class="p-4 bg-blue-200 hover:bg-blue-400 rounded-md"
+          class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
         >
           Catalogue des Salles
         </RouterLink>
