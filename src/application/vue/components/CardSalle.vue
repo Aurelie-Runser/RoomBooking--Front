@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import IconPing from '@/components/Icons/IconPing.vue'
-import IconPeoples from '@/components/Icons/IconPeoples.vue'
-import IconSuperficie from '@/components/Icons/IconSuperficie.vue'
+import IconPing from '@/application/vue/components/Icons/IconPing.vue'
+import IconPeoples from '@/application/vue/components/Icons/IconPeoples.vue'
+import IconSuperficie from '@/application/vue/components/Icons/IconSuperficie.vue'
 
 defineProps<{
   salle: object

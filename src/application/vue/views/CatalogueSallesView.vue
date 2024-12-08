@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ListCard from '@/components/ListCard.vue'
+import ListCard from '@/application/vue/components/ListCard.vue'
 
 const listTestSalles = [
   {

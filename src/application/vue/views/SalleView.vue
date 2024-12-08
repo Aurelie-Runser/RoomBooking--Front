@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import IconLoading from '@/components/icons/IconLoading.vue'
+import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 
 const listTestSalles = [
   {

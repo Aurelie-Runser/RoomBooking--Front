@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import IconLoading from '@/components/icons/IconLoading.vue'
+import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
+import { Button } from '@/application/vue/components/ui/button'
+import { Calendar } from '@/application/vue/components/ui/calendar'
 import {
   Command,
   CommandEmpty,
@@ -11,7 +11,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
+} from '@/application/vue/components/ui/command'
 import {
   Form,
   FormControl,
@@ -20,13 +20,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/application/vue/components/ui/form'
+import { Input } from '@/application/vue/components/ui/input'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from '@/application/vue/components/ui/popover'
 
 import { toast } from '@/components/ui/toast'
 

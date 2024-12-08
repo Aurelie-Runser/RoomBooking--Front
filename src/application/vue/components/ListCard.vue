@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CardSalle from '@/components/CardSalle.vue'
+import CardSalle from '@/application/vue/components/CardSalle.vue'
 
 defineProps<{
   listSalles: Array<T>

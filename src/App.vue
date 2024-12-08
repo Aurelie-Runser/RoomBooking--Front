@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import MenuComp from './components/MenuComp.vue'
+import MenuComp from './application/vue/components/MenuComp.vue'
 </script>
 
 <template>

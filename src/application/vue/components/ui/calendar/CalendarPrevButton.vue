@@ -1,11 +1,17 @@
 <script lang="ts" setup>
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/application/vue/components/ui/button'
 import { cn } from '@/utils'
 import { ChevronLeft } from 'lucide-vue-next'
-import { CalendarPrev, type CalendarPrevProps, useForwardProps } from 'radix-vue'
+import {
+  CalendarPrev,
+  type CalendarPrevProps,
+  useForwardProps,
+} from 'radix-vue'
 import { computed, type HTMLAttributes } from 'vue'
 
-const props = defineProps<CalendarPrevProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<
+  CalendarPrevProps & { class?: HTMLAttributes['class'] }
+>()
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props
@@ -18,11 +24,13 @@ const forwardedProps = useForwardProps(delegatedProps)
 
 <template>
   <CalendarPrev
-    :class="cn(
-      buttonVariants({ variant: 'outline' }),
-      'nh-7 nw-7 nbg-transparent np-0 nopacity-50 hover:nopacity-100',
-      props.class,
-    )"
+    :class="
+      cn(
+        buttonVariants({ variant: 'outline' }),
+        'nh-7 nw-7 nbg-transparent np-0 nopacity-50 hover:nopacity-100',
+        props.class,
+      )
+    "
     v-bind="forwardedProps"
   >
     <slot>
