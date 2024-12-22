@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { Salle } from '@/domain/models/Salle'
+
 import IconPing from '@/application/vue/components/Icons/IconPing.vue'
 import IconPeoples from '@/application/vue/components/Icons/IconPeoples.vue'
 import IconSuperficie from '@/application/vue/components/Icons/IconSuperficie.vue'
 
 defineProps<{
-  salle: object
+  salle: Salle
 }>()
 </script>
 
@@ -38,9 +40,9 @@ defineProps<{
       </div>
 
       <p class="w-64 truncate">
-        <span v-for="(equipement, index) in salle.equipements" :key="index">
-          {{ equipement.name
-          }}<span v-if="index < salle.equipements.length - 1">, </span>
+        <span v-for="(equipement, index) in salle.equipments" :key="index">
+          {{ equipement.name }}
+          <span v-if="index < salle.equipments.length - 1">, </span>
         </span>
       </p>
     </div>

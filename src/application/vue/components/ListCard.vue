@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { Salle } from '@/domain/models/Salle'
 import CardSalle from '@/application/vue/components/CardSalle.vue'
 
 defineProps<{
-  listSalles: Array<T>
+  listSalles: Array<Salle>
 }>()
 </script>
 
