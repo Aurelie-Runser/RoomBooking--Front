@@ -11,21 +11,22 @@ const roomId = Number(route.params.id)
 
 const room = ref<Room>()
 const roomFind = ref(false)
+const loading = ref(true)
 
 onMounted(async () => {
   try {
     room.value = await GetRoomById(roomId)
     roomFind.value = true
-    console.log(room.value)
   } catch (error) {
     console.error('Erreur :', error)
   }
+  loading.value = false
 })
 </script>
 
 <template>
-  <main v-if="roomFind">
-    <div v-if="room">
+  <main v-if="!loading">
+    <div v-if="room && roomFind">
       <h1 class="text-4xl font-bold text-center my-4">
         {{ room.name }}
       </h1>
