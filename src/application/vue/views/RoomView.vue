@@ -5,6 +5,7 @@ import type { Room } from '@/domain/models/Room'
 import { GetRoomById } from '@/domain/services/roomService'
 
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
+import ErrorMessage from '../components/ErrorMessageComp.vue'
 
 const route = useRoute()
 const roomId = Number(route.params.id)
@@ -63,21 +64,9 @@ onMounted(async () => {
     </div>
 
     <div v-else>
-      <p class="text-center m-6 p-4 bg-red-100 border border-red-500">
-        La salle que vous recherchez n'existe pas :&#40;
-      </p>
-
-      <div class="flex justify-center gap-6">
-        <RouterLink to="/" class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
-          Accueil
-        </RouterLink>
-        <RouterLink
-          to="/catalogue-salles"
-          class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
-        >
-          Catalogue des Salles
-        </RouterLink>
-      </div>
+      <ErrorMessage>
+        La salle que vous recherchez n'a pas été trouvée
+      </ErrorMessage>
     </div>
   </main>
 

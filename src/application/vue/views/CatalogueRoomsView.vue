@@ -4,6 +4,7 @@ import type { Room } from '@/domain/models/Room'
 import { GetRooms } from '@/domain/services/roomService'
 import ListCards from '@/application/vue/components/ListCardsComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
+import ErrorMessage from '../components/ErrorMessageComp.vue'
 
 const listRooms = ref<Room[]>([])
 const listRoomsFind = ref(false)
@@ -30,18 +31,7 @@ onMounted(async () => {
       </div>
 
       <div v-else>
-        <p class="text-center m-6 p-4 bg-red-100 border border-red-500">
-          La liste des salles n'a pas pue être chargé :&#40;
-        </p>
-
-        <div class="flex justify-center gap-6">
-          <RouterLink
-            to="/"
-            class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
-          >
-            Accueil
-          </RouterLink>
-        </div>
+        <ErrorMessage>La liste des salles n'a pas pu être chargée</ErrorMessage>
       </div>
     </div>
 
