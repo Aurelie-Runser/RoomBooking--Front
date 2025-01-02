@@ -1,5 +1,5 @@
 export type Room = {
-  id: symbol | string
+  id: number
   name: string
   slug: string
   picture: string

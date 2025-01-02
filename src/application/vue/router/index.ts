@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/application/vue/views/HomeView.vue'
-import CatalogueSallesView from '@/application/vue/views/CatalogueSallesView.vue'
-import SalleView from '@/application/vue/views/SalleView.vue'
-import SalleReserveView from '@/application/vue/views/SalleReserveView.vue'
+import CatalogueRoomsView from '@/application/vue/views/CatalogueRoomsView.vue'
+import RoomView from '@/application/vue/views/RoomView.vue'
+import RoomReservationView from '@/application/vue/views/RoomReservationView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,7 +15,7 @@ const router = createRouter({
     {
       path: '/catalogue-salles',
       name: 'catalogue-salles',
-      component: CatalogueSallesView,
+      component: CatalogueRoomsView,
     },
     {
       path: '/salle/',
@@ -24,12 +24,12 @@ const router = createRouter({
     {
       path: '/salle/:id',
       name: 'salles-view',
-      component: SalleView,
+      component: RoomView,
     },
     {
       path: '/salle/:id/reservation',
       name: 'salles-reservation',
-      component: SalleReserveView,
+      component: RoomReservationView,
     },
   ],
 })
