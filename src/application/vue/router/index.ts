@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/application/vue/views/HomeView.vue'
-import RoomsListView from '@/application/vue/views/RoomsListView.vue'
-import RoomView from '@/application/vue/views/RoomView.vue'
-import RoomBookingView from '@/application/vue/views/RoomBookingView.vue'
+import RoomsListView from '@/application/vue/views/room/RoomsListView.vue'
+import RoomView from '@/application/vue/views/room/RoomView.vue'
+import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 
 import LoginView from '../views/user/LoginView.vue'
 import MyProfilView from '../views/user/MyProfilView.vue'
