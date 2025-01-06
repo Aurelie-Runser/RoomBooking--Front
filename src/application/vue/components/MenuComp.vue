@@ -7,10 +7,13 @@
         <RouterLink to="/">Accueil</RouterLink>
       </li>
       <li class="hover:text-blue-500">
-        <RouterLink to="/catalogue-salles">Catalogue de Salles</RouterLink>
+        <RouterLink to="/rooms-list">Catalogue de Salles</RouterLink>
       </li>
       <li class="hover:text-blue-500">
         <RouterLink to="/login">Connexion</RouterLink>
+      </li>
+      <li class="hover:text-blue-500">
+        <RouterLink to="/profil">Mon Profil</RouterLink>
       </li>
     </ul>
   </nav>

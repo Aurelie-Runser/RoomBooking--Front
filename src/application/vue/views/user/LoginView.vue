@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { LoaderIcon } from 'lucide-vue-next'
 import { Login } from '@/infrastructure/auth/authService'
 import type { loginRequestModel } from '@/domain/models/loginRequestModel'
+import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import ErrorMessage from '../../components/ErrorMessageComp.vue'
 
 const router = useRouter()
@@ -59,7 +59,7 @@ const loginFunction = async () => {
         Se connecter
       </button>
 
-      <LoaderIcon v-else />
+      <IconLoading v-else />
 
       <div v-if="logError.length > 0">
         <ErrorMessage>
