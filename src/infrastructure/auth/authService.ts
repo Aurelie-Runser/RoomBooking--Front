@@ -4,7 +4,6 @@ import apiClient from '@/infrastructure/utils/apiClient'
 
 export async function Login(loginRequest: loginRequestModel) {
   try {
-    console.log(loginRequest)
     const response = await apiClient.post('/user/login', loginRequest)
     return response.data // UserLog
   } catch (error) {

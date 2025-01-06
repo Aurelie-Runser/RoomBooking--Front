@@ -21,7 +21,11 @@ const loginFunction = async () => {
   loading.value = true
 
   try {
-    userLog.value = await Login(loginRequest.value)
+    const response = await Login(loginRequest.value)
+    userLog.value = response.user
+
+    const token = response.token
+    localStorage.setItem('jwtToken', token)
   } catch (error) {
     logError.value = error
   }
@@ -48,7 +52,13 @@ const loginFunction = async () => {
         class="border"
       />
 
-      <button v-if="!loading" type="submit">Se connecter</button>
+      <button
+        v-if="!loading"
+        type="submit"
+        class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+      >
+        Se connecter
+      </button>
 
       <LoaderIcon v-else />
 
