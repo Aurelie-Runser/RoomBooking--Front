@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { UserLog } from '@/domain/models/UserLog'
+import { useRouter } from 'vue-router'
 import { LoaderIcon } from 'lucide-vue-next'
 import { Login } from '@/infrastructure/auth/authService'
 import type { loginRequestModel } from '@/domain/models/loginRequestModel'
-
 import ErrorMessage from '../../components/ErrorMessageComp.vue'
+
+const router = useRouter()
 
 const loginRequest = ref<loginRequestModel>({
   email: '',
   password: '',
 })
 
-const userLog = ref<Partial<UserLog>>({})
 const loading = ref<boolean>(false)
 const logError = ref<string>('')
 
@@ -22,10 +22,9 @@ const loginFunction = async () => {
 
   try {
     const response = await Login(loginRequest.value)
-    userLog.value = response.user
-
     const token = response.token
-    localStorage.setItem('jwtToken', token)
+    localStorage.setItem('jwtToken', JSON.stringify(token))
+    router.push('/profil')
   } catch (error) {
     logError.value = error
   }
