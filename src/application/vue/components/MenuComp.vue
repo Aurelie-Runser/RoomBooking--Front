@@ -9,6 +9,9 @@
       <li class="hover:text-blue-500">
         <RouterLink to="/catalogue-salles">Catalogue de Salles</RouterLink>
       </li>
+      <li class="hover:text-blue-500">
+        <RouterLink to="/login">Connexion</RouterLink>
+      </li>
     </ul>
   </nav>
 </template>

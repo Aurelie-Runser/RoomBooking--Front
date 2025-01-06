@@ -3,6 +3,7 @@ import HomeView from '@/application/vue/views/HomeView.vue'
 import CatalogueRoomsView from '@/application/vue/views/CatalogueRoomsView.vue'
 import RoomView from '@/application/vue/views/RoomView.vue'
 import RoomReservationView from '@/application/vue/views/RoomReservationView.vue'
+import LoginView from '../views/user/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,11 @@ const router = createRouter({
       path: '/salle/:id/reservation',
       name: 'salles-reservation',
       component: RoomReservationView,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
     },
   ],
 })
