@@ -5,7 +5,7 @@ import type { Room } from '@/domain/models/Room'
 import { GetRoomById } from '@/domain/services/roomService'
 
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
-import ErrorMessage from '../components/ErrorMessageComp.vue'
+import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 
 const route = useRoute()
 const roomId = Number(route.params.id)
