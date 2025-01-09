@@ -7,6 +7,7 @@ import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import type { UserLog } from '@/domain/models/UserLog'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import UserUpdateForm from '@/application/vue/components/forms/UserUpdateForm.vue'
+import UserDeleteForm from '@/application/vue/components/forms/UserDeleteForm.vue'
 
 const router = useRouter()
 
@@ -56,6 +57,11 @@ const LogoutFunction = () => {
       >
         Se déconnecter
       </button>
+
+      <br />
+      <br />
+
+      <UserDeleteForm :userId="user.id" />
     </div>
     <div v-else>
       <ErrorMessage>{{ userError }} </ErrorMessage>
