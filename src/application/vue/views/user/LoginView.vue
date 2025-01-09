@@ -35,9 +35,12 @@ const loginFunction = async () => {
 
 <template>
   <main class="h-[200vh]">
-    <h1 class="text-4xl font-bold text-center my-4">Login</h1>
+    <h1 class="text-4xl font-bold text-center my-4">Connexion</h1>
 
-    <form @submit.prevent="loginFunction">
+    <form
+      @submit.prevent="loginFunction"
+      class="flex flex-col w-80 mx-auto gap-4"
+    >
       <input
         type="email"
         v-model="loginRequest.email"
@@ -60,6 +63,8 @@ const loginFunction = async () => {
       </button>
 
       <IconLoading v-else />
+
+      <RouterLink to="/register">Je n'ai pas de compte</RouterLink>
 
       <div v-if="logError.length > 0">
         <ErrorMessage>

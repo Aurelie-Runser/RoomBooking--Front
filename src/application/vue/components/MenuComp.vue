@@ -13,6 +13,9 @@
         <RouterLink to="/login">Connexion</RouterLink>
       </li>
       <li class="hover:text-blue-500">
+        <RouterLink to="/register">Inscription</RouterLink>
+      </li>
+      <li class="hover:text-blue-500">
         <RouterLink to="/profil">Mon Profil</RouterLink>
       </li>
     </ul>

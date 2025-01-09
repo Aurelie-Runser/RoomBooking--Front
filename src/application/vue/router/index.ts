@@ -5,6 +5,7 @@ import RoomView from '@/application/vue/views/room/RoomView.vue'
 import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 
 import LoginView from '../views/user/LoginView.vue'
+import RegisterView from '../views/user/RegisterView.vue'
 import MyProfilView from '../views/user/MyProfilView.vue'
 
 const router = createRouter({
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView,
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
     },
     {
       path: '/profil',
