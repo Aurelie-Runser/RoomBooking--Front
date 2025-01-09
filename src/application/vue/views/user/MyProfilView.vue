@@ -32,8 +32,26 @@ const LogoutFunction = () => {
 
 <template>
   <main v-if="!loading">
-    <div v-if="user">
-      {{ user }}
+    <div v-if="user" class="mx-10">
+      <h1 class="text-4xl my-4">{{ user.firstname }} {{ user.lastname }}</h1>
+
+      <p class="my-2">
+        Email : <strong>{{ user.email }}</strong>
+      </p>
+      <p class="my-2">
+        Entreprise : <strong>{{ user.company }}</strong>
+      </p>
+      <p class="my-2">
+        Emploi : <strong>{{ user.job }}</strong>
+      </p>
+
+      <p class="my-2">
+        Historique des reservations
+        <strong class="text-red-600 uppercase">A venir</strong>
+      </p>
+      <p class="my-2">
+        Salles favorites <strong class="text-red-600 uppercase">A venir</strong>
+      </p>
 
       <button
         @click="LogoutFunction"
