@@ -14,7 +14,7 @@ const user = ref<UserLog>({ ...props.user })
 const updateError = ref<string>('')
 const updateSucces = ref<string>('')
 
-const updateFunction = async () => {
+const updateUserFunction = async () => {
   updateError.value = ''
   loading.value = true
 
@@ -32,7 +32,7 @@ const updateFunction = async () => {
 
 <template>
   <form
-    @submit.prevent="updateFunction"
+    @submit.prevent="updateUserFunction"
     class="grid grid-cols-1 w-96 mx-auto gap-4"
   >
     <input

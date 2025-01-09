@@ -17,7 +17,7 @@ const deleteError = ref<string>('')
 const deleteSucces = ref<string>('')
 const timerNumber = ref<number>(5)
 
-const deleteFunction = async () => {
+const deleteUserFunction = async () => {
   deleteError.value = ''
   loading.value = true
 
@@ -48,7 +48,7 @@ const LogoutFunction = () => {
 <template>
   <button
     v-if="deleteSucces.length == 0"
-    @click="deleteFunction"
+    @click="deleteUserFunction"
     class="p-4 bg-red-200 hover:bg-red-300 rounded-md"
   >
     Supprimer mon compte
