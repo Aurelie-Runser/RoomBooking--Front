@@ -1,10 +1,10 @@
 export type UserLog = {
   id: number
-  Lastname: string
-  Firstname: string
-  Email: string
-  Password: string
-  Company: string
-  Job: string
-  Role: string
+  lastname: string
+  firstname: string
+  email: string
+  password: string
+  company: string
+  job: string
+  role: string
 }

@@ -6,7 +6,7 @@ import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 
 import LoginView from '../views/user/LoginView.vue'
 import RegisterView from '../views/user/RegisterView.vue'
-import MyProfilView from '../views/user/MyProfilView.vue'
+import ProfilView from '../views/user/ProfilView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,7 +50,7 @@ const router = createRouter({
     {
       path: '/profil',
       name: 'profil',
-      component: MyProfilView,
+      component: ProfilView,
       meta: { requiresAuth: true },
     },
   ],

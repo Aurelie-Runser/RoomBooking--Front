@@ -5,12 +5,13 @@ import { useRouter } from 'vue-router'
 
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import type { UserLog } from '@/domain/models/UserLog'
-import ErrorMessage from '../../components/ErrorMessageComp.vue'
+import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import UserUpdateForm from '@/application/vue/components/forms/UserUpdateForm.vue'
 
 const router = useRouter()
 
 const loading = ref(true)
-const user = ref()
+const user = ref<UserLog>()
 const userError = ref<string>('')
 
 onMounted(async () => {
@@ -33,17 +34,13 @@ const LogoutFunction = () => {
 <template>
   <main v-if="!loading">
     <div v-if="user" class="mx-10">
-      <h1 class="text-4xl my-4">{{ user.firstname }} {{ user.lastname }}</h1>
+      <h1 class="text-4xl font-bold text-center my-4">Votre Profil</h1>
 
-      <p class="my-2">
-        Email : <strong>{{ user.email }}</strong>
-      </p>
-      <p class="my-2">
-        Entreprise : <strong>{{ user.company }}</strong>
-      </p>
-      <p class="my-2">
-        Emploi : <strong>{{ user.job }}</strong>
-      </p>
+      <UserUpdateForm :user="user" />
+
+      <br />
+      <br />
+      <br />
 
       <p class="my-2">
         Historique des reservations
