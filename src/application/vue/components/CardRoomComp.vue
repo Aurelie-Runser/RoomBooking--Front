@@ -12,7 +12,7 @@ defineProps<{
 
 <template>
   <RouterLink
-    :to="`/salle/${room.id}`"
+    :to="`/room/${room.id}`"
     class="flex max-w-lg gap-4 hover:bg-cyan-50 cursor-pointer"
   >
     <div class="w-1/3">

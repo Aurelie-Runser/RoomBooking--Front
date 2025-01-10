@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/application/vue/views/HomeView.vue'
-import CatalogueRoomsView from '@/application/vue/views/CatalogueRoomsView.vue'
-import RoomView from '@/application/vue/views/RoomView.vue'
-import RoomReservationView from '@/application/vue/views/RoomReservationView.vue'
+import RoomsListView from '@/application/vue/views/room/RoomsListView.vue'
+import RoomView from '@/application/vue/views/room/RoomView.vue'
+import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
+
+import LoginView from '../views/user/LoginView.vue'
+import RegisterView from '../views/user/RegisterView.vue'
+import ProfilView from '../views/user/ProfilView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,25 +17,53 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/catalogue-salles',
-      name: 'catalogue-salles',
-      component: CatalogueRoomsView,
+      path: '/rooms-list',
+      name: 'rooms-list',
+      component: RoomsListView,
     },
     {
-      path: '/salle/',
-      redirect: 'catalogue-salles',
+      path: '/room/',
+      redirect: 'rooms-list',
+      children: [
+        {
+          path: ':id',
+          name: 'room-view',
+          component: RoomView,
+        },
+        {
+          path: ':id/booking',
+          name: 'room-booking',
+          component: RoomBookingView,
+        },
+      ],
     },
     {
-      path: '/salle/:id',
-      name: 'salles-view',
-      component: RoomView,
+      path: '/login',
+      name: 'login',
+      component: LoginView,
     },
     {
-      path: '/salle/:id/reservation',
-      name: 'salles-reservation',
-      component: RoomReservationView,
+      path: '/register',
+      name: 'register',
+      component: RegisterView,
+    },
+    {
+      path: '/profil',
+      name: 'profil',
+      component: ProfilView,
+      meta: { requiresAuth: true },
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('jwtToken')
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

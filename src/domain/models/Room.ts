@@ -8,6 +8,6 @@ export type Room = {
   capacity: number
   area: string
   isAccessible: boolean
-  surface: Array<string> // intérieur et/ou exterieur
-  equipments: Array<string>
+  surface: string // intérieur et/ou exterieur
+  // equipments: Array<string>
 }

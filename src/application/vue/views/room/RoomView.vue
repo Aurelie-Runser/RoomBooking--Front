@@ -5,7 +5,7 @@ import type { Room } from '@/domain/models/Room'
 import { GetRoomById } from '@/domain/services/roomService'
 
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
-import ErrorMessage from '../components/ErrorMessageComp.vue'
+import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 
 const route = useRoute()
 const roomId = Number(route.params.id)
@@ -54,7 +54,7 @@ onMounted(async () => {
             </ul>
           </div>
 
-          <RouterLink :to="`/salle/${room.id}/reservation`">
+          <RouterLink :to="`/room/${room.id}/booking`">
             <button class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
               Réserver
             </button>

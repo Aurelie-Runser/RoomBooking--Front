@@ -4,7 +4,7 @@ import type { Room } from '@/domain/models/Room'
 import { GetRooms } from '@/domain/services/roomService'
 import ListCards from '@/application/vue/components/ListCardsComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
-import ErrorMessage from '../components/ErrorMessageComp.vue'
+import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 
 const listRooms = ref<Room[]>([])
 const listRoomsFind = ref(false)
