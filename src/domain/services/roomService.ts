@@ -23,7 +23,6 @@ export async function GetRoomById(id: number) {
 
 export async function UpdateRoom(updateRoomRequest: updateRoomRequestModel) {
   try {
-    updateRoomRequest.token = updateRoomRequest.token.replace(/"/g, '')
     const response = await apiClient.put('/room', updateRoomRequest)
     return response.data.message
   } catch (error) {

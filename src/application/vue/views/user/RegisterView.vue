@@ -27,7 +27,7 @@ const registerFunction = async () => {
   try {
     const response = await Register(registerRequest.value)
     const token = response.token
-    localStorage.setItem('jwtToken', JSON.stringify(token))
+    localStorage.setItem('jwtToken', JSON.stringify(token).replace(/"/g, ''))
     router.push('/profil')
   } catch (error) {
     resgiterError.value = error
@@ -100,12 +100,14 @@ const registerFunction = async () => {
 
       <IconLoading v-else />
 
-      <RouterLink to="/login">J'ai déjà un compte</RouterLink>
+      <div class="col-span-2">
+        <RouterLink to="/login">J'ai déjà un compte</RouterLink>
 
-      <div v-if="resgiterError.length > 0">
-        <ErrorMessage>
-          {{ resgiterError }}
-        </ErrorMessage>
+        <div v-if="resgiterError.length > 0">
+          <ErrorMessage>
+            {{ resgiterError }}
+          </ErrorMessage>
+        </div>
       </div>
     </form>
   </main>

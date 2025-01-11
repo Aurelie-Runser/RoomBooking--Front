@@ -22,12 +22,8 @@ export async function Login(loginRequest: loginRequestModel) {
   }
 }
 
-export async function GetProfil(token: string | null) {
-  if (token == null)
-    return "Erreur lors de l'identification de l'utilisateur conneté"
-
+export async function GetProfil(token: string) {
   try {
-    token = token.replace(/"/g, '')
     const response = await apiClient.get('/user/profil/' + token)
     return response.data
   } catch (error) {
