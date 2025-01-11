@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { Room } from '@/domain/models/Room'
-import { UpdateRoom } from '@/domain/services/roomService'
+import { GetRoomGroupe, UpdateRoom } from '@/domain/services/roomService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'
@@ -12,8 +12,17 @@ const props = defineProps<{
 
 const loading = ref(false)
 const room = ref<Room>({ ...props.roomProps })
+const roomGroupe = ref<string[]>()
 const updateError = ref<string>('')
 const updateSucces = ref<string>('')
+
+onMounted(async () => {
+  try {
+    roomGroupe.value = await GetRoomGroupe()
+  } catch (error) {
+    console.error('Erreur :', error)
+  }
+})
 
 const updateRoomFunction = async () => {
   updateError.value = ''
@@ -68,13 +77,9 @@ const updateRoomFunction = async () => {
     />
 
     <select name="room-groupe" id="room-groupe" v-model="room.groupe">
-      <option value=""></option>
-      <option value="Petite Réunion">Petite Réunion</option>
-      <option value="Moyenne Réunion">Moyenne Réunion</option>
-      <option value="Grande Réunion">Grande Réunion</option>
-      <option value="Conférence">Conférence</option>
-      <option value="Fête">Fête</option>
-      <option value="Gala">Gala</option>
+      <option v-for="groupe in roomGroupe" :key="groupe" :value="groupe">
+        {{ groupe }}
+      </option>
     </select>
 
     <input

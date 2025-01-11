@@ -30,3 +30,16 @@ export async function UpdateRoom(room: Room) {
     throw error
   }
 }
+
+export async function GetRoomGroupe() {
+  try {
+    const response = await apiClient.get('/room/groupe')
+    return response.data
+  } catch (error) {
+    console.error(
+      'Erreur lors de la récupération des groupes de salle :',
+      error,
+    )
+    throw error
+  }
+}
