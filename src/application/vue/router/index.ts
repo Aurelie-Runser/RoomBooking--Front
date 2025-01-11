@@ -3,8 +3,8 @@ import HomeView from '@/application/vue/views/HomeView.vue'
 
 import RoomsListView from '@/application/vue/views/room/RoomsListView.vue'
 import RoomView from '@/application/vue/views/room/RoomView.vue'
-import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 import RoomUpdateView from '@/application/vue/views/room/RoomUpdateView.vue'
+import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 
 import LoginView from '../views/user/LoginView.vue'
 import RegisterView from '../views/user/RegisterView.vue'
@@ -18,6 +18,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
+
     {
       path: '/rooms-list',
       name: 'rooms-list',
@@ -41,9 +42,11 @@ const router = createRouter({
           path: ':id/update',
           name: 'room-update',
           component: RoomUpdateView,
+          meta: { requiresAdmin: true },
         },
       ],
     },
+
     {
       path: '/login',
       name: 'login',
@@ -65,9 +68,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem('jwtToken')
+  const isAdmin = localStorage.getItem('isAdmin')
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login')
+  } else if (to.meta.requiresAdmin && isAdmin != 'true') {
+    next('/')
   } else {
     next()
   }
