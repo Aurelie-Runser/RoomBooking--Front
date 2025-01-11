@@ -25,9 +25,7 @@ const registerFunction = async () => {
   loading.value = true
 
   try {
-    const response = await Register(registerRequest.value)
-    const token = response.token
-    localStorage.setItem('jwtToken', JSON.stringify(token).replace(/"/g, ''))
+    await Register(registerRequest.value)
     router.push('/profil')
   } catch (error) {
     resgiterError.value = error

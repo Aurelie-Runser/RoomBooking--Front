@@ -21,9 +21,7 @@ const loginFunction = async () => {
   loading.value = true
 
   try {
-    const response = await Login(loginRequest.value)
-    const token = response.token
-    localStorage.setItem('jwtToken', JSON.stringify(token).replace(/"/g, ''))
+    await Login(loginRequest.value)
     router.push('/profil')
   } catch (error) {
     logError.value = error
