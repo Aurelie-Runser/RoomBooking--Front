@@ -7,7 +7,7 @@ export async function UpdateUser(user: UserLog) {
     return response.data.message
   } catch (error) {
     console.error('Erreur lors de la modification de votre compte :', error)
-    throw error
+    throw error.response.data.message
   }
 }
 
@@ -17,6 +17,6 @@ export async function DeleteUser(userId: number) {
     return response.data.message
   } catch (error) {
     console.error('Erreur lors de la suppression de votre compte :', error)
-    throw error
+    throw error.response.data.message
   }
 }
