@@ -20,7 +20,7 @@ onMounted(async () => {
   try {
     roomGroupe.value = await GetRoomGroupe()
   } catch (error) {
-    console.error('Erreur :', error)
+    updateError.value = error
   }
 })
 
@@ -30,7 +30,8 @@ const updateRoomFunction = async () => {
   loading.value = true
 
   try {
-    const response = await UpdateRoom(room.value!)
+    const token = localStorage.getItem('jwtToken')
+    const response = await UpdateRoom({ newRoom: room.value!, token: token! })
     updateSucces.value = response
   } catch (error) {
     updateError.value = error
