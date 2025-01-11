@@ -1,13 +1,12 @@
 export type Room = {
   id: number
   name: string
-  slug: string
-  picture: string
+  picture: string | null
   adress: string
+  adressComplements: string | null
   groupe: string
   capacity: number
   area: string
   isAccessible: boolean
-  surface: string // intérieur et/ou exterieur
-  // equipments: Array<string>
+  surface: string | null // intérieur et/ou exterieur
 }
