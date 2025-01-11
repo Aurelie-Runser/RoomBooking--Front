@@ -17,6 +17,7 @@ const updateSucces = ref<string>('')
 
 const updateUserFunction = async () => {
   updateError.value = ''
+  updateSucces.value = ''
   loading.value = true
 
   try {
