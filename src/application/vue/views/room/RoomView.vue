@@ -59,6 +59,14 @@ onMounted(async () => {
               Réserver
             </button>
           </RouterLink>
+
+          <RouterLink :to="`/room/${room.id}/update`">
+            <button
+              class="mt-20 p-4 bg-amber-200 hover:bg-amber-300 rounded-md"
+            >
+              Mettre à jour
+            </button>
+          </RouterLink>
         </div>
       </div>
     </div>

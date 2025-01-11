@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/application/vue/views/HomeView.vue'
+
 import RoomsListView from '@/application/vue/views/room/RoomsListView.vue'
 import RoomView from '@/application/vue/views/room/RoomView.vue'
 import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
+import RoomUpdateView from '@/application/vue/views/room/RoomUpdateView.vue'
 
 import LoginView from '../views/user/LoginView.vue'
 import RegisterView from '../views/user/RegisterView.vue'
@@ -34,6 +36,11 @@ const router = createRouter({
           path: ':id/booking',
           name: 'room-booking',
           component: RoomBookingView,
+        },
+        {
+          path: ':id/update',
+          name: 'room-update',
+          component: RoomUpdateView,
         },
       ],
     },
