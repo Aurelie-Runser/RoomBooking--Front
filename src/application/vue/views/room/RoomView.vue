@@ -45,26 +45,9 @@ onMounted(async () => {
           <p>Capacité : {{ room.capacity }} personne</p>
           <p>Superficie {{ room.area }} m²</p>
 
-          <div>
-            <p>Equipements :</p>
-            <ul class="list-disc">
-              <li v-for="(eq, index) in room.equipments" :key="index">
-                {{ eq }}
-              </li>
-            </ul>
-          </div>
-
-          <RouterLink :to="`/room/${room.id}/booking`">
+          <RouterLink :to="`/rooms/${room.id}/booking`">
             <button class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
               Réserver
-            </button>
-          </RouterLink>
-
-          <RouterLink :to="`/room/${room.id}/update`">
-            <button
-              class="mt-20 p-4 bg-amber-200 hover:bg-amber-300 rounded-md"
-            >
-              Mettre à jour
             </button>
           </RouterLink>
         </div>
