@@ -10,3 +10,13 @@ export type Room = {
   isAccessible: boolean
   surface: string | null // intérieur et/ou exterieur
 }
+
+export type updateRoomRequestModel = {
+  newRoom: Room
+  token: string
+}
+
+export type deleteRoomRequestModel = {
+  roomId: number
+  token: string
+}
