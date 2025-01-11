@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import { DeleteUser } from '@/domain/services/userService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 
 const router = useRouter()
@@ -56,16 +57,13 @@ const LogoutFunction = () => {
 
   <IconLoading v-if="loading" />
 
-  <div
-    v-if="deleteSucces.length > 0"
-    class="text-center m-6 p-4 bg-green-100 border border-green-500"
-  >
-    <p>
+  <div v-if="deleteSucces.length > 0">
+    <SuccessMessage>
       {{ deleteSucces }}
       <br />
       Vous aller être rediriger vers la page d'accueil dans
       {{ timerNumber }} secondes.
-    </p>
+    </SuccessMessage>
   </div>
 
   <div v-else-if="deleteError.length > 0">
