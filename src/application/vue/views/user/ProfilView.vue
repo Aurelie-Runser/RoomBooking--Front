@@ -28,6 +28,7 @@ onMounted(async () => {
 
 const LogoutFunction = () => {
   localStorage.removeItem('jwtToken')
+  localStorage.removeItem('isAdmin')
   router.push('/')
 }
 </script>

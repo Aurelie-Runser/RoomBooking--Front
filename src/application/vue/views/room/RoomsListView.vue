@@ -27,7 +27,7 @@ onMounted(async () => {
 
     <div v-if="!loading">
       <div v-if="listRooms && listRoomsFind">
-        <ListCards :listRooms="listRooms" />
+        <ListCards :listRoomsProps="listRooms" />
       </div>
 
       <div v-else>

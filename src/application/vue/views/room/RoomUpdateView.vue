@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import type { Room } from '@/domain/models/Room'
 import { GetRoomById } from '@/domain/services/roomService'
-
+import RoomUpdateForm from '@/application/vue/components/forms/RoomUpdateForm.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 
@@ -29,34 +29,15 @@ onMounted(async () => {
   <main v-if="!loading">
     <div v-if="room && roomFind">
       <h1 class="text-4xl font-bold text-center my-4">
-        {{ room.name }}
+        Update Page Room {{ room.id }}
       </h1>
 
-      <div class="flex flex-wrap gap-4">
-        <img
-          class="max-w-full"
-          :src="`/roomsPictures/${room.picture}.jpg`"
-          :alt="`Photo de la salle ${room.name}`"
-        />
-
-        <div class="max-w-full flex flex-col gap-2">
-          <p>Adresse : {{ room.adress }}</p>
-          <p>Groupe : {{ room.groupe }}</p>
-          <p>Capacité : {{ room.capacity }} personne</p>
-          <p>Superficie {{ room.area }} m²</p>
-
-          <RouterLink :to="`/rooms/${room.id}/booking`">
-            <button class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
-              Réserver
-            </button>
-          </RouterLink>
-        </div>
-      </div>
+      <RoomUpdateForm :roomProps="room" />
     </div>
 
     <div v-else>
       <ErrorMessage>
-        La salle que vous recherchez n'a pas été trouvée
+        La salle que vous recherchez n'a pas été trouvée.
       </ErrorMessage>
     </div>
   </main>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="text-center m-6 p-4 bg-red-100 border border-red-500">
-      <slot /> :&#40;
+      <slot /> &#x1F61F;
     </p>
 
     <div class="flex justify-center gap-6">

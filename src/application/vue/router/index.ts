@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/application/vue/views/HomeView.vue'
+
 import RoomsListView from '@/application/vue/views/room/RoomsListView.vue'
 import RoomView from '@/application/vue/views/room/RoomView.vue'
+import RoomAddView from '@/application/vue/views/room/RoomAddView.vue'
+import RoomUpdateView from '@/application/vue/views/room/RoomUpdateView.vue'
 import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 
-import LoginView from '../views/user/LoginView.vue'
-import RegisterView from '../views/user/RegisterView.vue'
-import ProfilView from '../views/user/ProfilView.vue'
+import LoginView from '@/application/vue/views/user/LoginView.vue'
+import RegisterView from '@/application/vue/views/user/RegisterView.vue'
+import ProfilView from '@/application/vue/views/user/ProfilView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +19,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
+
     {
       path: '/rooms-list',
       name: 'rooms-list',
@@ -35,8 +39,20 @@ const router = createRouter({
           name: 'room-booking',
           component: RoomBookingView,
         },
+        {
+          path: 'add',
+          name: 'room-add',
+          component: RoomAddView,
+        },
+        {
+          path: ':id/update',
+          name: 'room-update',
+          component: RoomUpdateView,
+          meta: { requiresAdmin: true },
+        },
       ],
     },
+
     {
       path: '/login',
       name: 'login',
@@ -58,9 +74,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!localStorage.getItem('jwtToken')
+  const isAdmin = localStorage.getItem('isAdmin')
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login')
+  } else if (to.meta.requiresAdmin && isAdmin != 'true') {
+    next('/')
   } else {
     next()
   }

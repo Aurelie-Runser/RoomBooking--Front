@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import type { UserLog } from '@/domain/models/UserLog'
 import { UpdateUser } from '@/domain/services/userService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 
 const props = defineProps<{
@@ -16,6 +17,7 @@ const updateSucces = ref<string>('')
 
 const updateUserFunction = async () => {
   updateError.value = ''
+  updateSucces.value = ''
   loading.value = true
 
   try {
@@ -79,6 +81,11 @@ const updateUserFunction = async () => {
       class="border"
     />
 
+    <select name="role" id="role" v-model="user.role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+
     <button
       v-if="!loading"
       type="submit"
@@ -89,11 +96,8 @@ const updateUserFunction = async () => {
 
     <IconLoading v-else />
 
-    <div
-      v-if="updateSucces.length > 0"
-      class="text-center m-6 p-4 bg-green-100 border border-green-500"
-    >
-      <p>{{ updateSucces }}</p>
+    <div v-if="updateSucces.length > 0">
+      <SuccessMessage>{{ updateSucces }}</SuccessMessage>
     </div>
 
     <div v-else-if="updateError.length > 0">
