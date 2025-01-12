@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import type { Room } from '@/domain/models/Room'
 import { GetRoomGroupe, AddRoom } from '@/domain/services/roomService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
-import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'
+
+const router = useRouter()
 
 const loading = ref(false)
 const room = ref<Room>({
@@ -20,7 +22,6 @@ const room = ref<Room>({
 })
 const roomGroupe = ref<string[]>()
 const addError = ref<string>('')
-const addSucces = ref<string>('')
 
 onMounted(async () => {
   try {
@@ -32,13 +33,12 @@ onMounted(async () => {
 
 const addRoomFunction = async () => {
   addError.value = ''
-  addSucces.value = ''
   loading.value = true
 
   try {
     const token = localStorage.getItem('jwtToken')
     const response = await AddRoom({ newRoom: room.value!, token: token! })
-    addSucces.value = response
+    router.push(`/room/${response}`)
   } catch (error) {
     addError.value = error
   }
@@ -127,13 +127,7 @@ const addRoomFunction = async () => {
 
     <IconLoading v-else />
 
-    <div v-if="addSucces.length > 0">
-      <SuccessMessage>
-        {{ addSucces }}
-      </SuccessMessage>
-    </div>
-
-    <div v-else-if="addError.length > 0">
+    <div v-if="addError.length > 0">
       <ErrorMessage>{{ addError }}</ErrorMessage>
     </div>
   </form>

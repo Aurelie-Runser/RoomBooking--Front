@@ -26,9 +26,8 @@ export async function GetRoomById(id: number) {
 
 export async function AddRoom(addRoomRequest: updateRoomRequestModel) {
   try {
-    console.log('addRoomRequest', addRoomRequest)
     const response = await apiClient.post('/room', addRoomRequest)
-    return response.data.message
+    return response.data
   } catch (error) {
     console.error('Erreur lors de la création de la salle :', error)
     throw (
