@@ -24,6 +24,20 @@ export async function GetRoomById(id: number) {
   }
 }
 
+export async function AddRoom(addRoomRequest: updateRoomRequestModel) {
+  try {
+    console.log('addRoomRequest', addRoomRequest)
+    const response = await apiClient.post('/room', addRoomRequest)
+    return response.data.message
+  } catch (error) {
+    console.error('Erreur lors de la création de la salle :', error)
+    throw (
+      error.response.data.message ||
+      'Erreur lors de la création de la salle. Vérifier tous les champs obligatoires'
+    )
+  }
+}
+
 export async function UpdateRoom(updateRoomRequest: updateRoomRequestModel) {
   try {
     const response = await apiClient.put('/room', updateRoomRequest)

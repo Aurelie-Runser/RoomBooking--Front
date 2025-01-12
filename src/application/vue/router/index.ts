@@ -3,12 +3,13 @@ import HomeView from '@/application/vue/views/HomeView.vue'
 
 import RoomsListView from '@/application/vue/views/room/RoomsListView.vue'
 import RoomView from '@/application/vue/views/room/RoomView.vue'
+import RoomAddView from '@/application/vue/views/room/RoomAddView.vue'
 import RoomUpdateView from '@/application/vue/views/room/RoomUpdateView.vue'
 import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 
-import LoginView from '../views/user/LoginView.vue'
-import RegisterView from '../views/user/RegisterView.vue'
-import ProfilView from '../views/user/ProfilView.vue'
+import LoginView from '@/application/vue/views/user/LoginView.vue'
+import RegisterView from '@/application/vue/views/user/RegisterView.vue'
+import ProfilView from '@/application/vue/views/user/ProfilView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,6 +38,11 @@ const router = createRouter({
           path: ':id/booking',
           name: 'room-booking',
           component: RoomBookingView,
+        },
+        {
+          path: 'add',
+          name: 'room-add',
+          component: RoomAddView,
         },
         {
           path: ':id/update',

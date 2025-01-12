@@ -41,6 +41,14 @@ const deleteRoomFunction = async (roomId: number) => {
     <ErrorMessage>{{ deleteError }}</ErrorMessage>
   </div>
 
+  <div v-if="isAdmin" class="mx-2 my-2">
+    <RouterLink to="/room/add">
+      <button class="p-2 bg-green-200 hover:bg-green-300 rounded-md">
+        Ajouter une salle
+      </button>
+    </RouterLink>
+  </div>
+
   <ul
     class="w-full m-auto p-2 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-x-6 gap-y-3 place-items-center"
   >
