@@ -9,6 +9,8 @@ import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import UserUpdateForm from '@/application/vue/components/forms/UserUpdateForm.vue'
 import UserDeleteForm from '@/application/vue/components/forms/UserDeleteForm.vue'
 
+import ListeBookings from '@/application/vue/components/ListBookingsComp.vue'
+
 const router = useRouter()
 
 const loading = ref(true)
@@ -40,7 +42,10 @@ const LogoutFunction = () => {
     <div v-if="user" class="mx-10">
       <h1 class="text-4xl font-bold text-center my-4">Votre Profil</h1>
 
-      <UserUpdateForm :user="user" />
+      <div class="flex flex-wrap gap-x-4 gap-y-20">
+        <UserUpdateForm :user="user" />
+        <ListeBookings />
+      </div>
 
       <br />
       <br />
