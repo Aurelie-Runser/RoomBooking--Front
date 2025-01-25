@@ -10,7 +10,9 @@ export async function GetRooms() {
     return response.data
   } catch (error) {
     console.error('Erreur lors de la récupération des salles :', error)
-    throw error.response.data.message
+    throw (
+      error.response.data.message || 'Erreur lors de la récupération des salles'
+    )
   }
 }
 
@@ -20,7 +22,10 @@ export async function GetRoomById(id: number) {
     return response.data
   } catch (error) {
     console.error('Erreur lors de la récupération de la salle :', error)
-    throw error.response.data.message
+    throw (
+      error.response.data.message ||
+      'Erreur lors de la récupération de la salle'
+    )
   }
 }
 
@@ -43,7 +48,10 @@ export async function UpdateRoom(updateRoomRequest: updateRoomRequestModel) {
     return response.data.message
   } catch (error) {
     console.error('Erreur lors de la modification de la salle :', error)
-    throw error.response.data.message
+    throw (
+      error.response.data.message ||
+      'Erreur lors de la modification de la salle'
+    )
   }
 }
 
@@ -73,6 +81,9 @@ export async function GetRoomGroupe() {
       'Erreur lors de la récupération des groupes de salle :',
       error,
     )
-    throw error.response.data.message
+    throw (
+      error.response.data.message ||
+      'Erreur lors de la récupération des groupes de salle'
+    )
   }
 }
