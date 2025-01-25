@@ -15,7 +15,7 @@ defineProps<{
     :to="`/room/${room.id}`"
     class="flex max-w-lg gap-4 hover:bg-cyan-50 cursor-pointer"
   >
-    <div class="w-1/3">
+    <div class="w-1/3 bg-cyan-100">
       <img
         class="w-full h-full object-cover"
         :src="`/roomsPictures/${room.picture}.jpg`"
