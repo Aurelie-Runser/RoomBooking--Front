@@ -22,6 +22,8 @@ onMounted(async () => {
     user.value = response
   } catch (error) {
     userError.value = error
+    localStorage.removeItem('jwtToken')
+    router.push('/')
   }
   loading.value = false
 })
