@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import type { Booking } from '@/domain/models/Booking'
-import { GetBookings } from '@/domain/services/bookingService'
+import type { BookingDto } from '@/domain/models/Booking'
+import { GetBookingsUser } from '@/domain/services/bookingService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import CardBooking from '@/application/vue/components/CardBookingComp.vue'
 
-const listBookings = ref<Booking[]>()
+const listBookings = ref<BookingDto[]>()
 const listRoomsFind = ref<boolean>(false)
 const loading = ref(true)
 const token = localStorage.getItem('jwtToken')
 
 onMounted(async () => {
   try {
-    listBookings.value = await GetBookings()
+    listBookings.value = await GetBookingsUser(token)
     listRoomsFind.value = true
   } catch (error) {
     console.error('Erreur :', error)
