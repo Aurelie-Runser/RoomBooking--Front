@@ -1,15 +1,15 @@
 import apiClient from '@/infrastructure/utils/apiClient'
 import type { updateBookingRequestModel } from '@/domain/models/Booking.ts'
 
-export async function GetBookings() {
+export async function GetBookingsUser(token: string) {
   try {
-    const response = await apiClient.get('/booking')
+    const response = await apiClient.get(`/booking/user/${token}`)
     return response.data
   } catch (error) {
-    console.error('Erreur lors de la récupération des réservtions :', error)
+    console.error('Erreur lors de la récupération de vos réservations :', error)
     throw (
       error.response.data.message ||
-      'Erreur lors de la récupération des réservtions'
+      'Erreur lors de la récupération de vos réservations'
     )
   }
 }
