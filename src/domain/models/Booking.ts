@@ -3,7 +3,7 @@ export type Booking = {
   name: string
   idRoom: number
   idOrganizer: number
-  dateFrom: number
+  dateFrom: string
   dateTo: number
   statut: string
 }

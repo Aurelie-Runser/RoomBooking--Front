@@ -35,7 +35,7 @@ const updateUserFunction = async () => {
 <template>
   <form
     @submit.prevent="updateUserFunction"
-    class="grid grid-cols-1 w-96 gap-4"
+    class="grid grid-cols-1 w-96 gap-4 h-fit"
   >
     <input
       type="text"

@@ -39,7 +39,7 @@ const LogoutFunction = () => {
 
 <template>
   <main v-if="!loading">
-    <div v-if="user" class="mx-10">
+    <div v-if="user" class="mx-5">
       <h1 class="text-4xl font-bold text-center my-4">Votre Profil</h1>
 
       <div class="flex flex-wrap gap-x-4 gap-y-20">
@@ -49,15 +49,6 @@ const LogoutFunction = () => {
 
       <br />
       <br />
-      <br />
-
-      <p class="my-2">
-        Historique des reservations
-        <strong class="text-red-600 uppercase">A venir</strong>
-      </p>
-      <p class="my-2">
-        Salles favorites <strong class="text-red-600 uppercase">A venir</strong>
-      </p>
 
       <button
         @click="LogoutFunction"
