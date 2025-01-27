@@ -6,7 +6,6 @@ import MenuComp from './application/vue/components/MenuComp.vue'
 <template>
   <MenuComp />
   <RouterView />
-  <!-- Contenu des pages -->
 </template>
 
 <style lang="scss"></style>

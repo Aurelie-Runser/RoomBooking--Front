@@ -1,12 +1,14 @@
 export type Booking = {
   id: number
   name: string
+  description: string
   idRoom: number
   idOrganizer: number
   dateFrom: string
-  dateTo: number
+  dateTo: string
   statut: string
 }
+
 export type bookingDto = {
   id: number
   name: string
@@ -23,7 +25,17 @@ export type bookingDto = {
   statut: string
 }
 
+export type newBooking = {
+  name: string
+  description: string
+  idRoom: number
+  dateFrom: string | Date
+  timeFrom: string
+  dateTo: string | Date
+  timeTo: string
+}
+
 export type updateBookingRequestModel = {
-  newBooking: Booking
+  newBooking: newBooking
   token: string
 }

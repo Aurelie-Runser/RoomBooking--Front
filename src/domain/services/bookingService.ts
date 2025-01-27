@@ -27,9 +27,9 @@ export async function GetBookingById(id: number) {
   }
 }
 
-export async function AddBooking(addRoomRequest: updateBookingRequestModel) {
+export async function AddBooking(addBookingRequest: updateBookingRequestModel) {
   try {
-    const response = await apiClient.post('/booking', addRoomRequest)
+    const response = await apiClient.post('/booking', addBookingRequest)
     return response.data.id
   } catch (error) {
     console.error('Erreur lors de la création de la réservation :', error)
@@ -72,7 +72,7 @@ export async function UpdateBooking(
 //   }
 // }
 
-export async function GetbookingStatus() {
+export async function GetBookingStatus() {
   try {
     const response = await apiClient.get('/booking/status')
     return response.data

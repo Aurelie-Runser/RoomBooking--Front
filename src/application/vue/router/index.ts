@@ -5,9 +5,9 @@ import RoomsListView from '@/application/vue/views/room/RoomsListView.vue'
 import RoomView from '@/application/vue/views/room/RoomView.vue'
 import RoomAddView from '@/application/vue/views/room/RoomAddView.vue'
 import RoomUpdateView from '@/application/vue/views/room/RoomUpdateView.vue'
-import RoomBookingView from '@/application/vue/views/room/RoomBookingView.vue'
 
 import BookingView from '@/application/vue/views/booking/BookingView.vue'
+import BookingAddView from '@/application/vue/views/booking/BookingAddView.vue'
 
 import LoginView from '@/application/vue/views/user/LoginView.vue'
 import RegisterView from '@/application/vue/views/user/RegisterView.vue'
@@ -38,8 +38,8 @@ const router = createRouter({
         },
         {
           path: ':id/booking',
-          name: 'room-booking',
-          component: RoomBookingView,
+          name: 'booking-ad',
+          component: BookingAddView,
         },
         {
           path: 'add',
