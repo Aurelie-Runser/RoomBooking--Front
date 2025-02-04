@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { UserLog } from '@/domain/models/UserLog'
+import type { UserLog } from '@/domain/models/User'
 import { UpdateUser } from '@/domain/services/userService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'
@@ -35,7 +35,7 @@ const updateUserFunction = async () => {
 <template>
   <form
     @submit.prevent="updateUserFunction"
-    class="grid grid-cols-1 w-96 mx-auto gap-4"
+    class="grid grid-cols-1 w-96 gap-4 h-fit"
   >
     <input
       type="text"
@@ -89,7 +89,7 @@ const updateUserFunction = async () => {
     <button
       v-if="!loading"
       type="submit"
-      class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+      class="w-fit p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
     >
       Enregistrer les modifications
     </button>

@@ -1,3 +1,9 @@
+export type Users = {
+  id: number
+  lastname: string
+  firstname: string | null
+}
+
 export type UserLog = {
   id: number
   lastname: string

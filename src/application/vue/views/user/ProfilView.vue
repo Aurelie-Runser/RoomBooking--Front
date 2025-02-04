@@ -4,10 +4,12 @@ import { GetProfil } from '@/infrastructure/auth/authService'
 import { useRouter } from 'vue-router'
 
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
-import type { UserLog } from '@/domain/models/UserLog'
+import type { UserLog } from '@/domain/models/User'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import UserUpdateForm from '@/application/vue/components/forms/UserUpdateForm.vue'
 import UserDeleteForm from '@/application/vue/components/forms/UserDeleteForm.vue'
+
+import ListeBookings from '@/application/vue/components/ListBookingsComp.vue'
 
 const router = useRouter()
 
@@ -37,34 +39,25 @@ const LogoutFunction = () => {
 
 <template>
   <main v-if="!loading">
-    <div v-if="user" class="mx-10">
+    <div v-if="user" class="mx-5">
       <h1 class="text-4xl font-bold text-center my-4">Votre Profil</h1>
 
-      <UserUpdateForm :user="user" />
+      <div class="flex flex-wrap gap-x-4 gap-y-20">
+        <div class="flex flex-col gap-10 justify-start">
+          <UserUpdateForm :user="user" />
 
-      <br />
-      <br />
-      <br />
+          <button
+            @click="LogoutFunction"
+            class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+          >
+            Se déconnecter
+          </button>
 
-      <p class="my-2">
-        Historique des reservations
-        <strong class="text-red-600 uppercase">A venir</strong>
-      </p>
-      <p class="my-2">
-        Salles favorites <strong class="text-red-600 uppercase">A venir</strong>
-      </p>
+          <UserDeleteForm :userId="user.id" />
+        </div>
 
-      <button
-        @click="LogoutFunction"
-        class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
-      >
-        Se déconnecter
-      </button>
-
-      <br />
-      <br />
-
-      <UserDeleteForm :userId="user.id" />
+        <ListeBookings />
+      </div>
     </div>
     <div v-else>
       <ErrorMessage>{{ userError }} </ErrorMessage>
