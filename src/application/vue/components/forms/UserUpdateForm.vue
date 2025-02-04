@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { UserLog } from '@/domain/models/UserLog'
+import type { UserLog } from '@/domain/models/User'
 import { UpdateUser } from '@/domain/services/userService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'

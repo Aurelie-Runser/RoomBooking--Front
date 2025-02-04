@@ -1,5 +1,18 @@
 import apiClient from '@/infrastructure/utils/apiClient'
-import type { UserLog } from '../models/UserLog'
+import type { UserLog } from '@/domain/models/User'
+
+export async function GetUsers() {
+  try {
+    const response = await apiClient.get('/user')
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de la récupération des utilisateurs :', error)
+    throw (
+      error.response.data.message ||
+      'Erreur lors de la récupération des utilisateurs'
+    )
+  }
+}
 
 export async function UpdateUser(user: UserLog) {
   try {

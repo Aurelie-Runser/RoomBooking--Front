@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import type { Users } from '@/domain/models/User'
 import type { newBooking } from '@/domain/models/Booking'
+import { GetUsers } from '@/domain/services/userService'
 import { AddBooking } from '@/domain/services/bookingService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
@@ -20,16 +22,18 @@ const booking = ref<newBooking>({
   timeTo: '',
 })
 
-const bookingStatus = ref<string[]>()
+const users = ref<Users[]>()
+const guests = ref<number[]>([])
+
 const addError = ref<string>('')
 
-// onMounted(async () => {
-//   try {
-//     bookingStatus.value = await GetBookingStatus()
-//   } catch (error) {
-//     addError.value = error
-//   }
-// })
+onMounted(async () => {
+  try {
+    users.value = await GetUsers()
+  } catch (error) {
+    addError.value = error
+  }
+})
 
 const addBookingFunction = async () => {
   addError.value = ''
@@ -43,9 +47,11 @@ const addBookingFunction = async () => {
       booking.value.dateTo + ' ' + booking.value.timeTo,
     )
     const token = localStorage.getItem('jwtToken')
+
     const response = await AddBooking({
       newBooking: booking.value!,
       token: token!,
+      guests: guests.value,
     })
     router.push(`/booking/${response}`)
   } catch (error) {
@@ -54,12 +60,22 @@ const addBookingFunction = async () => {
 
   loading.value = false
 }
+
+function toggleGuest(userId: number) {
+  const index = guests.value.indexOf(userId)
+
+  if (index === -1) {
+    guests.value.push(userId)
+  } else {
+    guests.value.splice(index, 1)
+  }
+}
 </script>
 
 <template>
   <form
     @submit.prevent="addBookingFunction"
-    class="grid grid-cols-1 w-96 mx-auto gap-4"
+    class="grid grid-cols-1 max-w-96 w-11/12 mx-auto gap-4"
   >
     <input
       type="text"
@@ -108,13 +124,17 @@ const addBookingFunction = async () => {
       class="border"
     />
 
-    {{ booking }}
-
-    <!-- <select name="room-groupe" id="room-groupe" v-model="room.groupe">
-      <option v-for="groupe in roomGroupe" :key="groupe" :value="groupe">
-        {{ groupe }}
-      </option>
-    </select> -->
+    <div class="grid grid-cols-3">
+      <label v-for="user in users" :key="user.id">
+        <input
+          type="checkbox"
+          :value="user.id"
+          :checked="guests.includes(user.id)"
+          @change="toggleGuest(user.id)"
+        />
+        {{ user.lastname }} {{ user.firstname }}
+      </label>
+    </div>
 
     <button
       v-if="!loading"

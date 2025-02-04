@@ -38,4 +38,5 @@ export type newBooking = {
 export type updateBookingRequestModel = {
   newBooking: newBooking
   token: string
+  guests: number[]
 }
