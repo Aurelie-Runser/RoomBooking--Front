@@ -43,6 +43,16 @@ onMounted(async () => {
           <p>Heure de début : {{ booking.timeFromFormat }}</p>
           <p>Heure de fin : {{ booking.timeToFormat }}</p>
           <p>Statut : {{ booking.statut }}</p>
+          <p>Participants :</p>
+          <ul class="list-disc">
+            <li
+              class="list-inside"
+              v-for="(g, index) in booking.guestsName"
+              :key="index"
+            >
+              {{ g }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>

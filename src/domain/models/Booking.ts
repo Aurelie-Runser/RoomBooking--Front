@@ -23,6 +23,7 @@ export type bookingDto = {
   timeFromFormat: string
   timeToFormat: string
   statut: string
+  guestsName: string[]
 }
 
 export type newBooking = {
