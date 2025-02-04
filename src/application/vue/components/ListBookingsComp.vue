@@ -36,9 +36,9 @@ onMounted(async () => {
   <div v-if="!loading" class="basis-46">
     <div
       v-if="listBookings && listRoomsFind"
-      class="flex flex-wrap gap-x-2 gap-y-10"
+      class="flex flex-wrap gap-x-4 gap-y-10"
     >
-      <div class="basis-10">
+      <div class="basis-10 min-w-fit">
         <h2 class="text-2xl font-semibold mb-4">Réservations Futures</h2>
 
         <div>
@@ -52,7 +52,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="basis-10">
+      <div class="basis-10 min-w-fit">
         <h2 class="text-2xl font-semibold mb-4">Réservations Passées</h2>
 
         <div>

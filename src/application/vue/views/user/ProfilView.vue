@@ -43,24 +43,21 @@ const LogoutFunction = () => {
       <h1 class="text-4xl font-bold text-center my-4">Votre Profil</h1>
 
       <div class="flex flex-wrap gap-x-4 gap-y-20">
-        <UserUpdateForm :user="user" />
+        <div class="flex flex-col gap-10 justify-start">
+          <UserUpdateForm :user="user" />
+
+          <button
+            @click="LogoutFunction"
+            class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+          >
+            Se déconnecter
+          </button>
+
+          <UserDeleteForm :userId="user.id" />
+        </div>
+
         <ListeBookings />
       </div>
-
-      <br />
-      <br />
-
-      <button
-        @click="LogoutFunction"
-        class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
-      >
-        Se déconnecter
-      </button>
-
-      <br />
-      <br />
-
-      <UserDeleteForm :userId="user.id" />
     </div>
     <div v-else>
       <ErrorMessage>{{ userError }} </ErrorMessage>
