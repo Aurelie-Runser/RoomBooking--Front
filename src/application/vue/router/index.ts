@@ -40,11 +40,13 @@ const router = createRouter({
           path: ':id/booking',
           name: 'booking-ad',
           component: BookingAddView,
+          meta: { requiresAuth: true },
         },
         {
           path: 'add',
           name: 'room-add',
           component: RoomAddView,
+          meta: { requiresAdmin: true },
         },
         {
           path: ':id/update',
@@ -59,6 +61,7 @@ const router = createRouter({
       path: '/booking/:id',
       name: 'booking',
       component: BookingView,
+      meta: { requiresAuth: true },
     },
 
     {
