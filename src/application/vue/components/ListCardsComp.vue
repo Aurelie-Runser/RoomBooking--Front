@@ -41,7 +41,7 @@ const deleteRoomFunction = async (roomId: number) => {
     <ErrorMessage>{{ deleteError }}</ErrorMessage>
   </div>
 
-  <div v-if="isAdmin" class="mx-2 my-2">
+  <div v-if="token && isAdmin" class="mx-2 my-2">
     <RouterLink to="/room/add">
       <button class="p-2 bg-green-200 hover:bg-green-300 rounded-md">
         Ajouter une salle
@@ -55,7 +55,7 @@ const deleteRoomFunction = async (roomId: number) => {
     <li v-for="(room, index) in listRooms" :key="index">
       <CardRoom :room="room" />
 
-      <div v-if="isAdmin" class="my-2 flex gap-2">
+      <div v-if="token && isAdmin" class="my-2 flex gap-2">
         <RouterLink :to="`/room/${room.id}/update`">
           <button class="p-2 bg-amber-200 hover:bg-amber-300 rounded-md">
             Mettre à jour

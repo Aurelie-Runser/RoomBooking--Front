@@ -7,6 +7,7 @@ import { GetRoomById } from '@/domain/services/roomService'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 
+const token = localStorage.getItem('jwtToken')
 const route = useRoute()
 const roomId = Number(route.params.id)
 
@@ -45,11 +46,13 @@ onMounted(async () => {
           <p>Capacité : {{ room.capacity }} personne</p>
           <p>Superficie {{ room.area }} m²</p>
 
-          <RouterLink :to="`/room/${room.id}/booking`">
-            <button class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
-              Réserver
-            </button>
-          </RouterLink>
+          <div v-if="token">
+            <RouterLink :to="`/room/${room.id}/booking`">
+              <button class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
+                Réserver
+              </button>
+            </RouterLink>
+          </div>
         </div>
       </div>
     </div>
