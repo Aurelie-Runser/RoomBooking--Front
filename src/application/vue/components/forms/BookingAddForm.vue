@@ -11,6 +11,15 @@ import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 const router = useRouter()
 const route = useRoute()
 
+const today = new Date()
+const dateToday =
+  today.getFullYear() +
+  '-' +
+  String(today.getMonth() + 1).padStart(2, '0') +
+  '-' +
+  String(today.getDate()).padStart(2, '0')
+console.log(dateToday)
+
 const loading = ref(false)
 const booking = ref<newBooking>({
   name: '',
@@ -98,6 +107,7 @@ function toggleGuest(userId: number) {
       placeholder="Date de début *"
       required
       class="border"
+      :min="dateToday"
     />
 
     <input
@@ -114,6 +124,7 @@ function toggleGuest(userId: number) {
       placeholder="Date de fin *"
       required
       class="border"
+      :min="dateToday"
     />
 
     <input
