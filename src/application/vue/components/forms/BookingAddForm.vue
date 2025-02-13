@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import type { Users } from '@/domain/models/User'
 import type { newBooking } from '@/domain/models/Booking'
 import { GetUsers } from '@/domain/services/userService'
-import { AddBooking } from '@/domain/services/bookingService'
+import {
+  AddBooking,
+  GetAvailableStartHours,
+} from '@/domain/services/bookingService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 
@@ -29,74 +32,8 @@ const booking = ref<newBooking>({
   timeTo: '',
 })
 
-const availableStartHours = ref<string[]>([
-  '7:00',
-  '7:15',
-  '7:30',
-  '7:45',
-  '8:00',
-  '8:15',
-  '8:30',
-  '8:45',
-  '9:00',
-  '9:15',
-  '9:30',
-  '9:45',
-  '10:00',
-  '10:15',
-  '10:30',
-  '10:45',
-  '11:00',
-  '11:15',
-  '11:30',
-  '11:45',
-  '12:00',
-  '12:15',
-  '12:30',
-  '12:45',
-  '13:00',
-  '13:15',
-  '13:30',
-  '13:45',
-  '14:00',
-  '14:15',
-  '14:30',
-  '14:45',
-])
-const availableEndHours = ref<string[]>([
-  '7:00',
-  '7:15',
-  '7:30',
-  '7:45',
-  '8:00',
-  '8:15',
-  '8:30',
-  '8:45',
-  '9:00',
-  '9:15',
-  '9:30',
-  '9:45',
-  '10:00',
-  '10:15',
-  '10:30',
-  '10:45',
-  '11:00',
-  '11:15',
-  '11:30',
-  '11:45',
-  '12:00',
-  '12:15',
-  '12:30',
-  '12:45',
-  '13:00',
-  '13:15',
-  '13:30',
-  '13:45',
-  '14:00',
-  '14:15',
-  '14:30',
-  '14:45',
-])
+const availableStartHours = ref<string[]>([])
+const availableEndHours = ref<string[]>([])
 
 const users = ref<Users[]>()
 const guests = ref<number[]>([])
@@ -139,6 +76,49 @@ function toggleGuest(userId: number) {
   } else {
     guests.value.splice(index, 1)
   }
+}
+
+watch(
+  () => booking.value.day,
+  async newDate => {
+    if (!newDate || !booking.value.idRoom) return
+
+    try {
+      availableStartHours.value = await GetAvailableStartHours(
+        booking.value.idRoom,
+        newDate,
+      )
+      availableEndHours.value = availableStartHours.value
+    } catch (error) {
+      console.error(
+        'Erreur lors de la récupération des heures de début :',
+        error,
+      )
+    }
+  },
+  { immediate: true },
+)
+
+watch(
+  () => booking.value.timeFrom,
+  async newTime => {
+    if (!newTime || !booking.value.day || !booking.value.idRoom) return
+
+    try {
+      availableEndHours.value = generateEndHours(
+        availableStartHours.value,
+        booking.value.timeFrom,
+      )
+    } catch (error) {
+      console.error('Erreur lors de la génération des heures de fin :', error)
+    }
+  },
+)
+
+function generateEndHours(availableHours: string[], timeFrom: string) {
+  const hours = availableHours.filter(hour => hour > timeFrom)
+
+  return hours
 }
 </script>
 
