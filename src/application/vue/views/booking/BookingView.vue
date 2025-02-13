@@ -39,9 +39,9 @@ onMounted(async () => {
             Organisateur : {{ booking.organizerLastname }}
             {{ booking.organizerFirstname }}
           </p>
-          <p>Jour : {{ booking.dateFormat }}</p>
-          <p>Heure de début : {{ booking.timeFromFormat }}</p>
-          <p>Heure de fin : {{ booking.timeToFormat }}</p>
+          <p>Jour : {{ booking.day }}</p>
+          <p>Heure de début : {{ booking.timeFrom }}</p>
+          <p>Heure de fin : {{ booking.timeTo }}</p>
           <p>Statut : {{ booking.statut }}</p>
           <p>Participants :</p>
           <ul class="list-disc">

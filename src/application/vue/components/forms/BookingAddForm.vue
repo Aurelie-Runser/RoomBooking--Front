@@ -18,18 +18,85 @@ const dateToday =
   String(today.getMonth() + 1).padStart(2, '0') +
   '-' +
   String(today.getDate()).padStart(2, '0')
-console.log(dateToday)
 
 const loading = ref(false)
 const booking = ref<newBooking>({
   name: '',
   description: '',
   idRoom: Number(route.params.id),
-  dateFrom: '',
+  day: '',
   timeFrom: '',
-  dateTo: '',
   timeTo: '',
 })
+
+const availableStartHours = ref<string[]>([
+  '7:00',
+  '7:15',
+  '7:30',
+  '7:45',
+  '8:00',
+  '8:15',
+  '8:30',
+  '8:45',
+  '9:00',
+  '9:15',
+  '9:30',
+  '9:45',
+  '10:00',
+  '10:15',
+  '10:30',
+  '10:45',
+  '11:00',
+  '11:15',
+  '11:30',
+  '11:45',
+  '12:00',
+  '12:15',
+  '12:30',
+  '12:45',
+  '13:00',
+  '13:15',
+  '13:30',
+  '13:45',
+  '14:00',
+  '14:15',
+  '14:30',
+  '14:45',
+])
+const availableEndHours = ref<string[]>([
+  '7:00',
+  '7:15',
+  '7:30',
+  '7:45',
+  '8:00',
+  '8:15',
+  '8:30',
+  '8:45',
+  '9:00',
+  '9:15',
+  '9:30',
+  '9:45',
+  '10:00',
+  '10:15',
+  '10:30',
+  '10:45',
+  '11:00',
+  '11:15',
+  '11:30',
+  '11:45',
+  '12:00',
+  '12:15',
+  '12:30',
+  '12:45',
+  '13:00',
+  '13:15',
+  '13:30',
+  '13:45',
+  '14:00',
+  '14:15',
+  '14:30',
+  '14:45',
+])
 
 const users = ref<Users[]>()
 const guests = ref<number[]>([])
@@ -49,12 +116,6 @@ const addBookingFunction = async () => {
   loading.value = true
 
   try {
-    booking.value.dateFrom = new Date(
-      booking.value.dateFrom + ' ' + booking.value.timeFrom,
-    )
-    booking.value.dateTo = new Date(
-      booking.value.dateTo + ' ' + booking.value.timeTo,
-    )
     const token = localStorage.getItem('jwtToken')
 
     const response = await AddBooking({
@@ -103,37 +164,42 @@ function toggleGuest(userId: number) {
 
     <input
       type="date"
-      v-model="booking.dateFrom"
-      placeholder="Date de début *"
+      v-model="booking.day"
+      placeholder="Date *"
       required
       class="border"
       :min="dateToday"
     />
 
-    <input
-      type="time"
+    <select
       v-model="booking.timeFrom"
       placeholder="Heure de début *"
       required
       class="border"
-    />
+    >
+      <option
+        v-for="(hour, index) in availableStartHours"
+        :key="index"
+        :value="hour"
+      >
+        {{ hour }}
+      </option>
+    </select>
 
-    <input
-      type="date"
-      v-model="booking.dateTo"
-      placeholder="Date de fin *"
-      required
-      class="border"
-      :min="dateToday"
-    />
-
-    <input
-      type="time"
+    <select
       v-model="booking.timeTo"
       placeholder="Heure de fin *"
       required
       class="border"
-    />
+    >
+      <option
+        v-for="(hour, index) in availableEndHours"
+        :key="index"
+        :value="hour"
+      >
+        {{ hour }}
+      </option>
+    </select>
 
     <div class="grid grid-cols-3">
       <label v-for="user in users" :key="user.id">
