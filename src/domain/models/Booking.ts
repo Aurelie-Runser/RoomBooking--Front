@@ -18,7 +18,7 @@ export type BookingDto = {
   idOrganizer: number
   organizerLastname: string
   organizerFirstname: string
-  day: Date
+  day: string
   timeFrom: string
   timeTo: string
   statut: string

@@ -14,15 +14,19 @@ const token = localStorage.getItem('jwtToken')
 
 onMounted(async () => {
   try {
-    listBookings.value = await GetBookingsUser(token)
+    listBookings.value = await GetBookingsUser(token!)
 
     listBookingsFutur.value = listBookings.value
-    //   ?.sort((b1, b2) => new Date(b2.day) - new Date(b1.day))
-    //   .filter(booking => new Date(booking.day) >= new Date())
+      ?.sort(
+        (b1, b2) => new Date(b2.day).getTime() - new Date(b1.day).getTime(),
+      )
+      .filter(booking => new Date(booking.day) >= new Date())
 
-    // listBookingsPast.value = listBookings.value
-    //   ?.sort((b1, b2) => new Date(b2.day) - new Date(b1.day))
-    //   .filter(booking => new Date(booking.day) < new Date())
+    listBookingsPast.value = listBookings.value
+      ?.sort(
+        (b1, b2) => new Date(b2.day).getTime() - new Date(b1.day).getTime(),
+      )
+      .filter(booking => new Date(booking.day) < new Date())
 
     listRoomsFind.value = true
   } catch (error) {
