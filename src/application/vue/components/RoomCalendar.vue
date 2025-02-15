@@ -21,15 +21,14 @@ onMounted(async () => {
 
 const updateSelectedDateBookings = (date: Date) => {
   selectedDate.value = date
-  const formattedDate = format(date, 'dd/MM/yyyy')
+
   selectedDateBookings.value = bookings.value.filter(
-    booking => booking.dateFormat === formattedDate,
+    booking => format(booking.day, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd'),
   )
 }
 
 const isDateBooked = (date: Date) => {
-  const formattedDate = format(date, 'dd/MM/yyyy')
-  return bookings.value.some(booking => booking.dateFormat === formattedDate)
+  return bookings.value.some(booking => booking.day === date)
 }
 </script>
 
@@ -67,7 +66,7 @@ const isDateBooked = (date: Date) => {
             class="p-4 border rounded-md"
           >
             <h4 class="font-semibold">{{ booking.name }}</h4>
-            <p>{{ booking.timeFromFormat }} - {{ booking.timeToFormat }}</p>
+            <p>{{ booking.timeFrom }} - {{ booking.timeTo }}</p>
             <p>
               Organisateur: {{ booking.organizerLastname }}
               {{ booking.organizerFirstname }}
