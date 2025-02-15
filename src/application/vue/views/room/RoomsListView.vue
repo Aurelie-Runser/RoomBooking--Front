@@ -1,14 +1,37 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import type { Room } from '@/domain/models/Room'
-import { GetRooms } from '@/domain/services/roomService'
+import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import ListCards from '@/application/vue/components/ListCardsComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
-import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import type { Room } from '@/domain/models/Room'
+import { GetRooms } from '@/domain/services/roomService'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 const listRooms = ref<Room[]>([])
 const listRoomsFind = ref(false)
 const loading = ref(true)
+
+const filteredRooms = computed(() => {
+  const searchQuery = route.query.search?.toString().toLowerCase()
+  if (!searchQuery) return listRooms.value
+
+  return listRooms.value.filter(
+    room =>
+      room.name.toLowerCase().includes(searchQuery) ||
+      room.adress.toLowerCase().includes(searchQuery) ||
+      room.groupe.toLowerCase().includes(searchQuery),
+  )
+})
+
+watch(
+  () => route.query.search,
+  () => {
+    // La computed property filteredRooms sera recalculée automatiquement
+    // quand la query change
+  },
+  { immediate: true },
+)
 
 onMounted(async () => {
   try {
@@ -27,7 +50,7 @@ onMounted(async () => {
 
     <div v-if="!loading">
       <div v-if="listRooms && listRoomsFind">
-        <ListCards :listRoomsProps="listRooms" />
+        <ListCards :listRoomsProps="filteredRooms" />
       </div>
 
       <div v-else>

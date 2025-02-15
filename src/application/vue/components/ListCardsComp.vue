@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Room } from '@/domain/models/Room'
 import CardRoom from '@/application/vue/components/CardRoomComp.vue'
-import { DeleteRoom } from '@/domain/services/roomService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'
+import type { Room } from '@/domain/models/Room'
+import { DeleteRoom } from '@/domain/services/roomService'
+import { ref } from 'vue'
 
-const props = defineProps<{
-  listRoomsProps: Array<Room>
-}>()
+defineProps<{ listRoomsProps: Array<Room> }>()
 
-const listRooms = ref<Room[]>(props.listRoomsProps)
 const token = localStorage.getItem('jwtToken')
 const isAdmin = localStorage.getItem('isAdmin') == 'true'
 const deleteError = ref<string>('')
@@ -21,7 +18,6 @@ const deleteRoomFunction = async (roomId: number) => {
 
   try {
     const response = await DeleteRoom({ roomId, token })
-    listRooms.value = listRooms.value.filter(room => room.id != roomId)
     deleteSucces.value = response
   } catch (error) {
     deleteError.value = error
@@ -52,7 +48,7 @@ const deleteRoomFunction = async (roomId: number) => {
   <ul
     class="w-full m-auto p-2 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-x-6 gap-y-3 place-items-center"
   >
-    <li v-for="(room, index) in listRooms" :key="index">
+    <li v-for="(room, index) in listRoomsProps" :key="index">
       <CardRoom :room="room" />
 
       <div v-if="token && isAdmin" class="my-2 flex gap-2">
