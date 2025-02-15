@@ -1,15 +1,15 @@
-import apiClient from '@/infrastructure/utils/apiClient'
 import type {
-  updateRoomRequestModel,
   deleteRoomRequestModel,
+  updateRoomRequestModel,
 } from '@/domain/models/Room.ts'
+import apiClient from '@/infrastructure/utils/apiClient'
 
 export async function GetRooms() {
   try {
     const response = await apiClient.get('/room')
     return response.data
   } catch (error) {
-    console.error('Erreur lors de la récupération des salles :', error)
+    console.error('Erreur lors de la récupération des salles :')
     throw (
       error.response.data.message || 'Erreur lors de la récupération des salles'
     )

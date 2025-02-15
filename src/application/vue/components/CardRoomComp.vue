@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import type { Room } from '@/domain/models/Room'
 
-import IconPing from '@/application/vue/components/icons/IconPing.vue'
 import IconPeoples from '@/application/vue/components/icons/IconPeoples.vue'
+import IconPing from '@/application/vue/components/icons/IconPing.vue'
 import IconSuperficie from '@/application/vue/components/icons/IconSuperficie.vue'
 
-defineProps<{
-  room: Room
-}>()
+defineProps<{ room: Room }>()
 </script>
 
 <template>

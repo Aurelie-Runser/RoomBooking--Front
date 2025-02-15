@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
 import type { Room } from '@/domain/models/Room'
 import { GetRoomById } from '@/domain/services/roomService'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
+import RoomCalendar from '../../components/RoomCalendar.vue'
 
 const token = localStorage.getItem('jwtToken')
 const route = useRoute()
@@ -27,7 +28,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main v-if="!loading">
+  <main v-if="!loading" class="container">
     <div v-if="room && roomFind">
       <h1 class="text-4xl font-bold text-center my-4">
         {{ room.name }}
@@ -55,6 +56,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
+      <RoomCalendar :roomId="roomId" />
     </div>
 
     <div v-else>
