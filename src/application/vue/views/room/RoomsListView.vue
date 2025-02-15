@@ -14,18 +14,32 @@ const loading = ref(true)
 
 const filteredRooms = computed(() => {
   const searchQuery = route.query.search?.toString().toLowerCase()
+  const searchType = route.query.type?.toString() || 'all'
+
   if (!searchQuery) return listRooms.value
 
-  return listRooms.value.filter(
-    room =>
-      room.name.toLowerCase().includes(searchQuery) ||
-      room.adress.toLowerCase().includes(searchQuery) ||
-      room.groupe.toLowerCase().includes(searchQuery),
-  )
+  return listRooms.value.filter(room => {
+    switch (searchType) {
+      case 'name':
+        return room.name.toLowerCase().includes(searchQuery)
+      case 'location':
+        return room.adress.toLowerCase().includes(searchQuery)
+      case 'capacity':
+        return room.capacity.toString().includes(searchQuery)
+      case 'all':
+      default:
+        return (
+          room.name.toLowerCase().includes(searchQuery) ||
+          room.adress.toLowerCase().includes(searchQuery) ||
+          room.groupe.toLowerCase().includes(searchQuery) ||
+          room.capacity.toString().includes(searchQuery)
+        )
+    }
+  })
 })
 
 watch(
-  () => route.query.search,
+  () => route.query,
   () => {
     // La computed property filteredRooms sera recalculée automatiquement
     // quand la query change
