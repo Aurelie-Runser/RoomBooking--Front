@@ -10,7 +10,7 @@ export type Booking = {
   statut: string
 }
 
-export type bookingDto = {
+export type BookingDto = {
   id: number
   name: string
   idRoom: number
@@ -29,7 +29,7 @@ export type newBooking = {
   name: string
   description: string
   idRoom: number
-  day: string | Date
+  day: string
   timeFrom: string
   timeTo: string
 }

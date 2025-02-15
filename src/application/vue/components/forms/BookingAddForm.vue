@@ -8,6 +8,7 @@ import {
   AddBooking,
   GetAvailableStartHours,
 } from '@/domain/services/bookingService'
+import { generateEndHours } from '@/infrastructure/utils/generateEndHours'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 
@@ -88,7 +89,11 @@ watch(
         booking.value.idRoom,
         newDate,
       )
-      availableEndHours.value = availableStartHours.value
+
+      availableEndHours.value = generateEndHours(
+        availableStartHours.value,
+        booking.value.timeFrom,
+      )
     } catch (error) {
       console.error(
         'Erreur lors de la récupération des heures de début :',
@@ -114,12 +119,6 @@ watch(
     }
   },
 )
-
-function generateEndHours(availableHours: string[], timeFrom: string) {
-  const hours = availableHours.filter(hour => hour > timeFrom)
-
-  return hours
-}
 </script>
 
 <template>
