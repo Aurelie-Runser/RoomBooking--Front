@@ -1,5 +1,5 @@
-import apiClient from '@/infrastructure/utils/apiClient'
 import type { updateBookingRequestModel } from '@/domain/models/Booking.ts'
+import apiClient from '@/infrastructure/utils/apiClient'
 
 export async function GetBookingsUser(token: string) {
   try {
@@ -85,5 +85,15 @@ export async function GetBookingStatus() {
       error.response.data.message ||
       'Erreur lors de la récupération des status des réservations'
     )
+  }
+}
+
+export async function GetBookingsRoom(roomId: number) {
+  try {
+    const response = await apiClient.get(`/booking/room/${roomId}`)
+    return response.data
+  } catch (error) {
+    console.error('Error fetching room bookings:', error)
+    throw error.response.data.message || 'Error fetching room bookings'
   }
 }
