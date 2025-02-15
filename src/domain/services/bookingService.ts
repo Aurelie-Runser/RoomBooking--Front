@@ -88,6 +88,19 @@ export async function GetBookingStatus() {
   }
 }
 
+export async function GetAvailableStartHours(roomId: number, date: string) {
+  try {
+    const response = await apiClient.get('/booking/available-start-hours', {
+      params: { roomId, date: date },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de la récupération des heures de début :', error)
+    throw error
+  }
+}
+
 export async function GetBookingsRoom(roomId: number) {
   try {
     const response = await apiClient.get(`/booking/room/${roomId}`)

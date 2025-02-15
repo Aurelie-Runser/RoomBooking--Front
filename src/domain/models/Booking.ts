@@ -4,12 +4,13 @@ export type Booking = {
   description: string
   idRoom: number
   idOrganizer: number
-  dateFrom: string
-  dateTo: string
+  day: Date
+  timeFrom: string
+  timeTo: string
   statut: string
 }
 
-export type bookingDto = {
+export type BookingDto = {
   id: number
   name: string
   idRoom: number
@@ -17,11 +18,9 @@ export type bookingDto = {
   idOrganizer: number
   organizerLastname: string
   organizerFirstname: string
-  dateFrom: string
-  dateTo: string
-  dateFormat: string
-  timeFromFormat: string
-  timeToFormat: string
+  day: Date
+  timeFrom: string
+  timeTo: string
   statut: string
   guestsName: string[]
 }
@@ -30,9 +29,8 @@ export type newBooking = {
   name: string
   description: string
   idRoom: number
-  dateFrom: string | Date
+  day: string
   timeFrom: string
-  dateTo: string | Date
   timeTo: string
 }
 

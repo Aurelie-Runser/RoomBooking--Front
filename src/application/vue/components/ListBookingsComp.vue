@@ -17,12 +17,12 @@ onMounted(async () => {
     listBookings.value = await GetBookingsUser(token)
 
     listBookingsFutur.value = listBookings.value
-      ?.sort((b1, b2) => b2.dateFrom - b1.dateFrom)
-      .filter(booking => new Date(booking.dateFrom) >= new Date())
+    //   ?.sort((b1, b2) => new Date(b2.day) - new Date(b1.day))
+    //   .filter(booking => new Date(booking.day) >= new Date())
 
-    listBookingsPast.value = listBookings.value
-      ?.sort((b1, b2) => b2.dateFrom - b1.dateFrom)
-      .filter(booking => new Date(booking.dateFrom) < new Date())
+    // listBookingsPast.value = listBookings.value
+    //   ?.sort((b1, b2) => new Date(b2.day) - new Date(b1.day))
+    //   .filter(booking => new Date(booking.day) < new Date())
 
     listRoomsFind.value = true
   } catch (error) {
