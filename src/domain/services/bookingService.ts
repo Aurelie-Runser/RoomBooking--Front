@@ -8,7 +8,8 @@ export async function GetBookingsUser(token: string) {
   } catch (error) {
     console.error('Erreur lors de la récupération de vos réservations :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la récupération de vos réservations'
     )
   }
@@ -21,7 +22,8 @@ export async function GetBookingById(id: number) {
   } catch (error) {
     console.error('Erreur lors de la récupération de la réservation :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la récupération de la réservation'
     )
   }
@@ -34,8 +36,9 @@ export async function AddBooking(addBookingRequest: updateBookingRequestModel) {
   } catch (error) {
     console.error('Erreur lors de la création de la réservation :', error)
     throw (
-      error.response.data.message ||
-      'Erreur lors de la création de la réservation. Vérifier tous les champs obligatoires'
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      'Erreur lors de la création de la réservation.'
     )
   }
 }
@@ -49,7 +52,8 @@ export async function UpdateBooking(
   } catch (error) {
     console.error('Erreur lors de la modification de la réservation :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la modification de la réservation'
     )
   }
@@ -82,7 +86,8 @@ export async function GetBookingStatus() {
       error,
     )
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la récupération des status des réservations'
     )
   }
@@ -107,6 +112,10 @@ export async function GetBookingsRoom(roomId: number) {
     return response.data
   } catch (error) {
     console.error('Error fetching room bookings:', error)
-    throw error.response.data.message || 'Error fetching room bookings'
+    throw (
+      error.response.data.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      'Error fetching room bookings'
+    )
   }
 }

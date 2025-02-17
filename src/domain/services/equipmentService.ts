@@ -7,7 +7,8 @@ export async function GetAvailableEquipments() {
   } catch (error) {
     console.error('Erreur lors de la récupération des équipement :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la récupération des équipement'
     )
   }

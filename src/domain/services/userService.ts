@@ -8,7 +8,8 @@ export async function GetUsers() {
   } catch (error) {
     console.error('Erreur lors de la récupération des utilisateurs :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la récupération des utilisateurs'
     )
   }
@@ -20,7 +21,11 @@ export async function UpdateUser(user: UserLog) {
     return response.data.message
   } catch (error) {
     console.error('Erreur lors de la modification de votre compte :', error)
-    throw error.response.data.message
+    throw (
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      'Erreur lors de la modififcation de votre compte'
+    )
   }
 }
 
@@ -30,6 +35,10 @@ export async function DeleteUser(userId: number) {
     return response.data.message
   } catch (error) {
     console.error('Erreur lors de la suppression de votre compte :', error)
-    throw error.response.data.message
+    throw (
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      'Erreur lors de la suppression de votre compte'
+    )
   }
 }

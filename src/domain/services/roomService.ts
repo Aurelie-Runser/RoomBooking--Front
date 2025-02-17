@@ -11,7 +11,9 @@ export async function GetRooms() {
   } catch (error) {
     console.error('Erreur lors de la récupération des salles :')
     throw (
-      error.response.data.message || 'Erreur lors de la récupération des salles'
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      'Erreur lors de la récupération des salles'
     )
   }
 }
@@ -23,7 +25,8 @@ export async function GetRoomById(id: number) {
   } catch (error) {
     console.error('Erreur lors de la récupération de la salle :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la récupération de la salle'
     )
   }
@@ -36,7 +39,8 @@ export async function AddRoom(addRoomRequest: updateRoomRequestModel) {
   } catch (error) {
     console.error('Erreur lors de la création de la salle :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la création de la salle. Vérifier tous les champs obligatoires'
     )
   }
@@ -49,7 +53,8 @@ export async function UpdateRoom(updateRoomRequest: updateRoomRequestModel) {
   } catch (error) {
     console.error('Erreur lors de la modification de la salle :', error)
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la modification de la salle'
     )
   }
@@ -67,7 +72,9 @@ export async function DeleteRoom(deleteRoomRequest: deleteRoomRequestModel) {
   } catch (error) {
     console.error('Erreur lors de la suppression de la salle :', error)
     throw (
-      error.response.data.message || 'Erreur lors de la suppression de la salle'
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      'Erreur lors de la suppression de la salle'
     )
   }
 }
@@ -82,7 +89,8 @@ export async function GetRoomGroupe() {
       error,
     )
     throw (
-      error.response.data.message ||
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
       'Erreur lors de la récupération des groupes de salle'
     )
   }
