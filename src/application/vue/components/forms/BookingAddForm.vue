@@ -250,9 +250,9 @@ const getEquipment = (materiel: string): NewEquipment => {
             equipmentsForBooking.some(equipment => equipment.materiel === eq)
           "
           type="number"
-          name=""
-          id=""
           class="border w-20"
+          min="0"
+          max="1000"
           v-model="getEquipment(eq).number"
         />
       </div>
