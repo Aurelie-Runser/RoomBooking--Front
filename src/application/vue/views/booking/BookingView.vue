@@ -6,6 +6,8 @@ import { GetBookingById } from '@/domain/services/bookingService'
 
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import { format } from 'date-fns'
+import { fr } from 'date-fns/locale'
 
 const route = useRoute()
 const bookingId = Number(route.params.id)
@@ -39,10 +41,13 @@ onMounted(async () => {
             Organisateur : {{ booking.organizerLastname }}
             {{ booking.organizerFirstname }}
           </p>
-          <p>Jour : {{ booking.day }}</p>
+          <p>
+            Jour : {{ format(booking.day, 'dd MMMM yyyy', { locale: fr }) }}
+          </p>
           <p>Heure de début : {{ booking.timeFrom }}</p>
           <p>Heure de fin : {{ booking.timeTo }}</p>
           <p>Statut : {{ booking.statut }}</p>
+
           <p>Participants :</p>
           <ul class="list-disc">
             <li
@@ -51,6 +56,17 @@ onMounted(async () => {
               :key="index"
             >
               {{ g }}
+            </li>
+          </ul>
+
+          <p>Equipements réservés :</p>
+          <ul class="list-disc">
+            <li
+              class="list-inside"
+              v-for="(e, index) in booking.equipmentsList"
+              :key="index"
+            >
+              {{ e.number }} {{ e.materiel }}
             </li>
           </ul>
         </div>

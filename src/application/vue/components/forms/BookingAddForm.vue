@@ -2,8 +2,10 @@
 import { useRoute, useRouter } from 'vue-router'
 import { ref, onMounted, watch } from 'vue'
 import type { Users } from '@/domain/models/User'
+import type { NewEquipment } from '@/domain/models/Equipment'
 import type { newBooking } from '@/domain/models/Booking'
 import { GetUsers } from '@/domain/services/userService'
+import { GetAvailableEquipments } from '@/domain/services/equipmentService'
 import {
   AddBooking,
   GetAvailableStartHours,
@@ -38,12 +40,15 @@ const availableEndHours = ref<string[]>([])
 
 const users = ref<Users[]>()
 const guests = ref<number[]>([])
+const equipments = ref<string[]>()
+const equipmentsForBooking = ref<NewEquipment[]>([])
 
 const addError = ref<string>('')
 
 onMounted(async () => {
   try {
     users.value = await GetUsers()
+    equipments.value = await GetAvailableEquipments()
   } catch (error) {
     addError.value = error
   }
@@ -60,6 +65,7 @@ const addBookingFunction = async () => {
       newBooking: booking.value!,
       token: token!,
       guests: guests.value,
+      equipments: equipmentsForBooking.value,
     })
     router.push(`/booking/${response}`)
   } catch (error) {
@@ -76,6 +82,18 @@ function toggleGuest(userId: number) {
     guests.value.push(userId)
   } else {
     guests.value.splice(index, 1)
+  }
+}
+
+function toggleEquipment(eq: string) {
+  const index = equipmentsForBooking.value?.findIndex(
+    equipment => equipment.materiel === eq,
+  )
+
+  if (index === -1) {
+    equipmentsForBooking.value.push({ materiel: eq, number: 1 })
+  } else {
+    equipmentsForBooking.value.splice(index, 1)
   }
 }
 
@@ -119,6 +137,14 @@ watch(
     }
   },
 )
+
+const getEquipment = (materiel: string): NewEquipment => {
+  return (
+    equipmentsForBooking.value.find(
+      equipment => equipment.materiel === materiel,
+    ) || { materiel, number: 0 } // Valeur par défaut pour éviter les erreurs
+  )
+}
 </script>
 
 <template>
@@ -126,70 +152,110 @@ watch(
     @submit.prevent="addBookingFunction"
     class="grid grid-cols-1 max-w-96 w-11/12 mx-auto gap-4"
   >
-    <input
-      type="text"
-      v-model="booking.name"
-      placeholder="Nom de la réunion *"
-      required
-      class="border"
-    />
+    <div class="flex flex-col gap-1">
+      <label for="name">Nom de la réunion *</label>
+      <input
+        type="text"
+        id="name"
+        v-model="booking.name"
+        required
+        class="border"
+      />
+    </div>
 
-    <input
-      type="text"
-      v-model="booking.description"
-      placeholder="Description"
-      class="border"
-    />
+    <div class="flex flex-col gap-1">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        id="description"
+        v-model="booking.description"
+        class="border"
+      />
+    </div>
 
-    <input
-      type="date"
-      v-model="booking.day"
-      placeholder="Date *"
-      required
-      class="border"
-      :min="dateToday"
-    />
+    <div class="flex flex-col gap-1">
+      <label for="date">Jour *</label>
+      <input
+        type="date"
+        id="date"
+        v-model="booking.day"
+        required
+        class="border"
+        :min="dateToday"
+      />
+    </div>
 
-    <select
-      v-model="booking.timeFrom"
-      placeholder="Heure de début *"
-      required
-      class="border"
-    >
-      <option
-        v-for="(hour, index) in availableStartHours"
+    <div class="col-1/2 flex flex-col gap-1">
+      <label for="timeFrom">Heure de début *</label>
+      <select v-model="booking.timeFrom" id="timeFrom" required class="border">
+        <option
+          v-for="(hour, index) in availableStartHours"
+          :key="index"
+          :value="hour"
+        >
+          {{ hour }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-1/2 flex flex-col gap-1">
+      <label for="timeTo">Heure de Fin *</label>
+      <select v-model="booking.timeTo" id="timeTo" required class="border">
+        <option
+          v-for="(hour, index) in availableEndHours"
+          :key="index"
+          :value="hour"
+        >
+          {{ hour }}
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <p>Renseignez les participants</p>
+      <div class="grid grid-cols-3">
+        <label v-for="user in users" :key="user.id">
+          <input
+            type="checkbox"
+            :value="user.id"
+            :checked="guests.includes(user.id)"
+            @change="toggleGuest(user.id)"
+          />
+          {{ user.lastname }} {{ user.firstname }}
+        </label>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1">
+      <p>Choisisez vos équipements si besoin</p>
+      <div
+        v-for="(eq, index) in equipments"
         :key="index"
-        :value="hour"
+        class="flex justify-between my-1"
       >
-        {{ hour }}
-      </option>
-    </select>
+        <label>
+          <input
+            type="checkbox"
+            :value="eq"
+            :checked="
+              equipmentsForBooking.some(equipment => equipment.materiel === eq)
+            "
+            @change="toggleEquipment(eq)"
+          />
+          {{ eq }}
+        </label>
 
-    <select
-      v-model="booking.timeTo"
-      placeholder="Heure de fin *"
-      required
-      class="border"
-    >
-      <option
-        v-for="(hour, index) in availableEndHours"
-        :key="index"
-        :value="hour"
-      >
-        {{ hour }}
-      </option>
-    </select>
-
-    <div class="grid grid-cols-3">
-      <label v-for="user in users" :key="user.id">
         <input
-          type="checkbox"
-          :value="user.id"
-          :checked="guests.includes(user.id)"
-          @change="toggleGuest(user.id)"
+          v-if="
+            equipmentsForBooking.some(equipment => equipment.materiel === eq)
+          "
+          type="number"
+          name=""
+          id=""
+          class="border w-20"
+          v-model="getEquipment(eq).number"
         />
-        {{ user.lastname }} {{ user.firstname }}
-      </label>
+      </div>
     </div>
 
     <button
@@ -197,7 +263,7 @@ watch(
       type="submit"
       class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
     >
-      Créer
+      Réserver
     </button>
 
     <IconLoading v-else />

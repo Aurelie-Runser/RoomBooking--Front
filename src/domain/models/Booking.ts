@@ -1,3 +1,5 @@
+import type { Equipment, NewEquipment } from './Equipment'
+
 export type Booking = {
   id: number
   name: string
@@ -23,6 +25,7 @@ export type BookingDto = {
   timeTo: string
   statut: string
   guestsName: string[]
+  equipmentsList: Equipment[]
 }
 
 export type newBooking = {
@@ -38,4 +41,5 @@ export type updateBookingRequestModel = {
   newBooking: newBooking
   token: string
   guests: number[]
+  equipments: NewEquipment[]
 }
