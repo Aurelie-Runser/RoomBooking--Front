@@ -35,7 +35,7 @@ const updateUserFunction = async () => {
 <template>
   <form
     @submit.prevent="updateUserFunction"
-    class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit"
+    class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit w-full"
   >
     <div class="my-input">
       <label for="lastname">Nom de Famille *</label>
@@ -44,18 +44,12 @@ const updateUserFunction = async () => {
         id="lastname"
         v-model="user.lastname"
         placeholder="Votre Nom de famille *"
-        class="border"
       />
     </div>
 
     <div class="my-input">
       <label for="firstname">Prénom</label>
-      <input
-        type="text"
-        id="firstname"
-        v-model="user.firstname"
-        class="border"
-      />
+      <input type="text" id="firstname" v-model="user.firstname" />
     </div>
 
     <div class="my-input">
@@ -65,18 +59,13 @@ const updateUserFunction = async () => {
         id="email"
         v-model="user.email"
         disabled
-        class="border text-gray-500 cursor-not-allowed"
+        class="text-gray-500 cursor-not-allowed"
       />
     </div>
 
     <div class="my-input">
-      <label for="password">Mot de passe *</label>
-      <input
-        type="password"
-        id="password"
-        v-model="user.password"
-        class="border"
-      />
+      <label for="password">Nouveau mot de passe</label>
+      <input type="password" id="password" v-model="user.password" />
     </div>
 
     <div class="my-input">

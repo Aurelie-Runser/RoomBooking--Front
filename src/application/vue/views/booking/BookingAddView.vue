@@ -4,7 +4,7 @@ import BookingAddForm from '@/application/vue/components/forms/BookingAddForm.vu
 
 <template>
   <main>
-    <h1 class="text-4xl font-bold text-center my-4">Create Booking Page</h1>
+    <h1>Création d'une réservation</h1>
 
     <BookingAddForm />
   </main>

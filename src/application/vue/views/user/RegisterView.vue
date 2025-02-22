@@ -50,18 +50,12 @@ const registerFunction = async () => {
           id="lastname"
           v-model="registerRequest.lastname"
           required
-          class="border"
         />
       </div>
 
       <div class="my-input">
         <label for="firstname">Prénom</label>
-        <input
-          type="text"
-          id="firstname"
-          v-model="registerRequest.firstname"
-          class="border"
-        />
+        <input type="text" id="firstname" v-model="registerRequest.firstname" />
       </div>
 
       <div class="my-input">
@@ -71,7 +65,6 @@ const registerFunction = async () => {
           id="email"
           v-model="registerRequest.email"
           required
-          class="border"
         />
       </div>
 
@@ -82,28 +75,17 @@ const registerFunction = async () => {
           id="password"
           v-model="registerRequest.password"
           required
-          class="border"
         />
       </div>
 
       <div class="my-input">
         <label for="company">Votre Entreprise</label>
-        <input
-          type="text"
-          id="company"
-          v-model="registerRequest.company"
-          class="border"
-        />
+        <input type="text" id="company" v-model="registerRequest.company" />
       </div>
 
       <div class="my-input">
         <label for="job">Votre Poste</label>
-        <input
-          type="text"
-          id="job"
-          v-model="registerRequest.job"
-          class="border"
-        />
+        <input type="text" id="job" v-model="registerRequest.job" />
       </div>
 
       <button

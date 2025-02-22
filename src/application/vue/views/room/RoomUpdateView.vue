@@ -28,8 +28,10 @@ onMounted(async () => {
 <template>
   <main v-if="!loading">
     <div v-if="room && roomFind">
-      <h1 class="text-4xl font-bold text-center my-4">
-        Update Page Room {{ room.id }}
+      <h1>
+        Mise à jour de la salle n°<span class="text-blue-700">
+          {{ room.id }}
+        </span>
       </h1>
 
       <RoomUpdateForm :roomProps="room" />

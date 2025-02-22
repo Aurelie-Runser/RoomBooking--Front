@@ -61,7 +61,7 @@ onMounted(async () => {
 
 <template>
   <main>
-    <h1 class="text-4xl font-bold text-center my-4">Catalogue de Salles</h1>
+    <h1>Catalogue de Salles</h1>
 
     <div v-if="!loading">
       <div v-if="listRooms && listRoomsFind">
@@ -69,7 +69,9 @@ onMounted(async () => {
       </div>
 
       <div v-else>
-        <ErrorMessage>La liste des salles n'a pas pu être chargée</ErrorMessage>
+        <ErrorMessage>
+          La liste des salles n'a pas pu être chargée.
+        </ErrorMessage>
       </div>
     </div>
 

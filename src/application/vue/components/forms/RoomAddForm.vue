@@ -28,6 +28,7 @@ const addError = ref<string>('')
 onMounted(async () => {
   try {
     roomGroupe.value = await GetRoomGroupe()
+    room.value.groupe = roomGroupe.value[0]
   } catch (error) {
     addError.value = error as string
   }
@@ -56,83 +57,80 @@ const addRoomFunction = async () => {
 <template>
   <form
     @submit.prevent="addRoomFunction"
-    class="grid grid-cols-1 w-96 mx-auto gap-4"
+    class="grid grid-cols-1 sm:grid-cols-2 max-w-xl mx-auto gap-4"
   >
-    <input
-      type="text"
-      v-model="room.name"
-      placeholder="Nom de la salle *"
-      required
-      class="border"
-    />
-
-    <input
-      type="file"
-      accept="image/*"
-      @change="handlePictureChange"
-      class="border text-gray-600"
-    />
-
-    <input
-      type="text"
-      v-model="room.adress"
-      placeholder="Adresse *"
-      required
-      class="border"
-    />
-
-    <input
-      type="text"
-      v-model="room.adressComplements"
-      placeholder="Complément d'adresse"
-      class="border"
-    />
-
-    <select name="room-groupe" id="room-groupe" v-model="room.groupe">
-      <option v-for="groupe in roomGroupe" :key="groupe" :value="groupe">
-        {{ groupe }}
-      </option>
-    </select>
-
-    <input
-      type="number"
-      v-model="room.capacity"
-      placeholder="Capacité (Nombre de personnes) *"
-      required
-      class="border"
-    />
-
-    <input
-      type="number"
-      v-model="room.area"
-      placeholder="Surface *"
-      required
-      class="border"
-    />
-
-    <div class="flex gap-1">
-      <input name="isAccessible" type="checkbox" v-model="room.isAccessible" />
-      <label for="isAccessible">Accessible pour les handicapés</label>
+    <div class="my-input">
+      <label for="name">Nom *</label>
+      <input type="text" id="name" v-model="room.name" required />
     </div>
 
-    <input
-      type="text"
-      v-model="room.surface"
-      placeholder="Intérieur et/ou Extérieur"
-      class="border"
-    />
+    <div class="my-input">
+      <label for="picture">Photo</label>
+      <input
+        type="file"
+        id="picture"
+        accept="image/*"
+        @change="handlePictureChange"
+        class="border text-gray-600"
+      />
+    </div>
+
+    <div class="my-input">
+      <label for="adress">Adresse *</label>
+      <input type="text" id="adress" v-model="room.adress" required />
+    </div>
+
+    <div class="my-input">
+      <label for="adressComplements">Complément d'adresse</label>
+      <input
+        type="text"
+        id="adressComplements"
+        v-model="room.adressComplements"
+      />
+    </div>
+
+    <div class="my-input col-span-full">
+      <label for="room-groupe">Type *</label>
+      <select name="room-groupe" id="room-groupe" v-model="room.groupe">
+        <option v-for="groupe in roomGroupe" :key="groupe" :value="groupe">
+          {{ groupe }}
+        </option>
+      </select>
+    </div>
+
+    <div class="my-input">
+      <label for="capacity">Capacité (nombre de personnes) *</label>
+      <input type="number" id="capacity" v-model="room.capacity" required />
+    </div>
+
+    <div class="my-input">
+      <label for="area">Surface *</label>
+      <input type="number" id="area" v-model="room.area" required />
+    </div>
+
+    <div class="flex items-center gap-2">
+      <input name="isAccessible" type="checkbox" v-model="room.isAccessible" />
+      <label for="isAccessible" class="text-blue-700">
+        {{ room.isAccessible ? '' : 'Non' }} Accessible pour les handicapés
+      </label>
+    </div>
+
+    <div class="my-input">
+      <label for="surface">Intérieur et/ou Exterieur ?</label>
+      <input type="text" id="surface" v-model="room.surface" />
+    </div>
 
     <button
       v-if="!loading"
       type="submit"
-      class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+      class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md col-span-full"
     >
       Créer
     </button>
 
     <IconLoading v-else />
 
-    <div v-if="addError || errorPicture">
+    <div v-if="addError || errorPicture" class="col-span-full">
       <ErrorMessage>{{ addError || errorPicture }}</ErrorMessage>
     </div>
   </form>

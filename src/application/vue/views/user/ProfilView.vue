@@ -42,7 +42,7 @@ const LogoutFunction = () => {
       <h1>Votre Profil</h1>
 
       <div class="flex flex-wrap justify-around gap-x-4 gap-y-20">
-        <div class="flex flex-col gap-10 justify-start">
+        <div class="flex flex-col gap-10 justify-start w-full max-w-md">
           <UserUpdateForm :user="user" />
 
           <button

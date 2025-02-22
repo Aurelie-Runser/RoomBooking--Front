@@ -33,26 +33,43 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main v-if="!loading" class="container">
+  <main v-if="!loading">
+    <RouterLink to="/rooms-list" class="hover:text-blue-700">
+      &lt; Retourner à la liste des salles
+    </RouterLink>
+
     <div v-if="room && roomFind">
-      <h1 class="text-4xl font-bold text-center my-4">
+      <h1>
         {{ room.name }}
       </h1>
 
-      <div class="flex flex-wrap gap-4">
+      <div class="flex flex-wrap items-center gap-y-4 gap-x-8">
         <img
-          class="max-w-full"
+          class="w-full max-w-xl rounded-xl"
           :src="`${room.picture}`"
           :alt="`Photo de la salle ${room.name}`"
         />
 
         <div class="max-w-full flex flex-col gap-2">
-          <p>Adresse : {{ room.adress }}</p>
-          <p>Groupe : {{ room.groupe }}</p>
-          <p>Capacité : {{ room.capacity }} personne</p>
-          <p>Superficie {{ room.area }} m²</p>
+          <p>
+            Adresse :
+            <span class="text-blue-700"
+              >{{ room.adress }}, {{ room.adressComplements }}</span
+            >
+          </p>
+          <p>
+            Groupe : <span class="text-blue-700">{{ room.groupe }}</span>
+          </p>
+          <p>
+            Capacité :
+            <span class="text-blue-700">{{ room.capacity }} personne</span>
+          </p>
+          <p>
+            Superficie <span class="text-blue-700">{{ room.area }} m²</span>
+          </p>
+          <p>{{ room.isAccessible ? 'A' : 'Non a' }}ccessible aux handicapés</p>
 
-          <div v-if="token">
+          <div v-if="token" class="mt-10">
             <RouterLink :to="`/room/${room.id}/booking`">
               <button class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md">
                 Réserver
@@ -66,7 +83,7 @@ onMounted(async () => {
 
     <div v-else>
       <ErrorMessage>
-        La salle que vous recherchez n'a pas été trouvée
+        La salle que vous recherchez n'a pas été trouvée.
       </ErrorMessage>
     </div>
   </main>

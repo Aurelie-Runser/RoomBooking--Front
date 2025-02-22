@@ -142,7 +142,7 @@ const getEquipment = (materiel: string): NewEquipment => {
   return (
     equipmentsForBooking.value.find(
       equipment => equipment.materiel === materiel,
-    ) || { materiel, number: 0 } // Valeur par défaut pour éviter les erreurs
+    ) || { materiel, number: 0 }
   )
 }
 </script>
@@ -150,70 +150,73 @@ const getEquipment = (materiel: string): NewEquipment => {
 <template>
   <form
     @submit.prevent="addBookingFunction"
-    class="grid grid-cols-1 max-w-96 w-11/12 mx-auto gap-4"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto gap-y-10 gap-x-8"
   >
-    <div class="flex flex-col gap-1">
-      <label for="name">Nom de la réunion *</label>
-      <input
-        type="text"
-        id="name"
-        v-model="booking.name"
-        required
-        class="border"
-      />
-    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="col-span-full my-input">
+        <label for="name">Nom de la réunion *</label>
+        <input type="text" id="name" v-model="booking.name" required />
+      </div>
 
-    <div class="flex flex-col gap-1">
-      <label for="description">Description</label>
-      <input
-        type="text"
-        id="description"
-        v-model="booking.description"
-        class="border"
-      />
-    </div>
+      <div class="col-span-full my-input">
+        <label for="description">Description</label>
+        <textarea
+          name="description"
+          id="description"
+          v-model="booking.description"
+        ></textarea>
+      </div>
 
-    <div class="flex flex-col gap-1">
-      <label for="date">Jour *</label>
-      <input
-        type="date"
-        id="date"
-        v-model="booking.day"
-        required
-        class="border"
-        :min="dateToday"
-      />
-    </div>
+      <div class="col-span-full my-input">
+        <label for="date">Jour *</label>
+        <input
+          type="date"
+          id="date"
+          v-model="booking.day"
+          required
+          :min="dateToday"
+        />
+      </div>
 
-    <div class="col-1/2 flex flex-col gap-1">
-      <label for="timeFrom">Heure de début *</label>
-      <select v-model="booking.timeFrom" id="timeFrom" required class="border">
-        <option
-          v-for="(hour, index) in availableStartHours"
-          :key="index"
-          :value="hour"
+      <div class="my-input">
+        <label for="timeFrom">Heure de début *</label>
+        <select
+          v-model="booking.timeFrom"
+          id="timeFrom"
+          required
+          class="border"
         >
-          {{ hour }}
-        </option>
-      </select>
-    </div>
+          <option
+            v-for="(hour, index) in availableStartHours"
+            :key="index"
+            :value="hour"
+          >
+            {{ hour }}
+          </option>
+        </select>
+        <span class="text-sm text-gray-700">Choisissez un jour d'abord</span>
+      </div>
 
-    <div class="col-1/2 flex flex-col gap-1">
-      <label for="timeTo">Heure de Fin *</label>
-      <select v-model="booking.timeTo" id="timeTo" required class="border">
-        <option
-          v-for="(hour, index) in availableEndHours"
-          :key="index"
-          :value="hour"
-        >
-          {{ hour }}
-        </option>
-      </select>
+      <div class="my-input">
+        <label for="timeTo">Heure de Fin *</label>
+        <select v-model="booking.timeTo" id="timeTo" required class="border">
+          <option
+            v-for="(hour, index) in availableEndHours"
+            :key="index"
+            :value="hour"
+          >
+            {{ hour }}
+          </option>
+        </select>
+        <span class="text-sm text-gray-700">
+          Choisissez une heure de début d'abord
+        </span>
+      </div>
     </div>
 
     <div>
-      <p>Renseignez les participants</p>
-      <div class="grid grid-cols-3">
+      <h2>Renseignez les participants</h2>
+      <div class="flex flex-wrap gap-6">
         <label v-for="user in users" :key="user.id">
           <input
             type="checkbox"
@@ -227,7 +230,7 @@ const getEquipment = (materiel: string): NewEquipment => {
     </div>
 
     <div class="grid grid-cols-1">
-      <p>Choisisez vos équipements si besoin</p>
+      <h2>Choisisez vos équipements si besoin</h2>
       <div
         v-for="(eq, index) in equipments"
         :key="index"
@@ -261,7 +264,7 @@ const getEquipment = (materiel: string): NewEquipment => {
     <button
       v-if="!loading"
       type="submit"
-      class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+      class="col-span-full w-60 mx-auto p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
     >
       Réserver
     </button>

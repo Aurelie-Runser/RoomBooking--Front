@@ -41,22 +41,12 @@ const loginFunction = async () => {
     >
       <div class="my-input">
         <label for="email">Votre adresse mail</label>
-        <input
-          type="email"
-          id="email"
-          v-model="loginRequest.email"
-          class="border"
-        />
+        <input type="email" id="email" v-model="loginRequest.email" />
       </div>
 
       <div class="my-input">
         <label for="password">Votre Mot de passe</label>
-        <input
-          type="password"
-          id="password"
-          v-model="loginRequest.password"
-          class="border"
-        />
+        <input type="password" id="password" v-model="loginRequest.password" />
       </div>
 
       <button
@@ -69,9 +59,9 @@ const loginFunction = async () => {
 
       <IconLoading v-else />
 
-      <RouterLink to="/register" class="hover:text-blue-700"
-        >Je n'ai pas de compte</RouterLink
-      >
+      <RouterLink to="/register" class="hover:text-blue-700">
+        Je n'ai pas de compte
+      </RouterLink>
 
       <div v-if="logError.length > 0">
         <ErrorMessage>
