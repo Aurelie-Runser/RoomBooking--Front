@@ -29,12 +29,22 @@ const handleSearch = (e: Event) => {
 </script>
 
 <template>
-  <nav
-    class="sticky top-0 flex justify-between p-4 items-center gap-6 border bg-blue-50"
-  >
-    <ul class="flex justify-center items-center gap-6">
+  <nav class="sticky top-0 p-4 border bg-blue-50">
+    <ul class="flex flex-wrap justify-evenly items-center gap-x-2 gap-y-4">
       <li class="hover:text-blue-500">
         <RouterLink to="/rooms-list">Catalogue de Salles</RouterLink>
+      </li>
+      <li v-if="isAuthenticated" class="hover:text-blue-500">
+        <RouterLink to="/profil">Mon Profil</RouterLink>
+      </li>
+      <li v-if="!isAuthenticated" class="p-2 hover:text-blue-500">
+        <RouterLink to="/login">Connexion</RouterLink>
+      </li>
+      <li
+        v-if="!isAuthenticated"
+        class="bg-blue-200 p-2 rounded-sm hover:text-blue-500"
+      >
+        <RouterLink to="/register">Inscription</RouterLink>
       </li>
       <li>
         <form @submit="handleSearch" class="flex gap-2">
@@ -43,7 +53,7 @@ const handleSearch = (e: Event) => {
               type="text"
               v-model="searchQuery"
               placeholder="Rechercher une salle..."
-              class="px-6 py-1 border rounded-l-md"
+              class="w-48 px-2 py-1 border rounded-l-md"
             />
             <select
               v-model="searchType"
@@ -62,20 +72,6 @@ const handleSearch = (e: Event) => {
             <Search class="size-4" />
           </button>
         </form>
-      </li>
-    </ul>
-    <ul class="flex gap-6">
-      <li v-if="isAuthenticated" class="hover:text-blue-500">
-        <RouterLink to="/profil">Mon Profil</RouterLink>
-      </li>
-      <li v-if="!isAuthenticated" class="p-2 hover:text-blue-500">
-        <RouterLink to="/login">Connexion</RouterLink>
-      </li>
-      <li
-        v-if="!isAuthenticated"
-        class="bg-blue-200 p-2 rounded-sm hover:text-blue-500"
-      >
-        <RouterLink to="/register">Inscription</RouterLink>
       </li>
     </ul>
   </nav>
