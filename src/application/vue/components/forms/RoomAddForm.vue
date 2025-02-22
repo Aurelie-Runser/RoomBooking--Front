@@ -11,7 +11,7 @@ const router = useRouter()
 const loading = ref(false)
 const room = ref<Room>({
   name: '',
-  picture: '',
+  picture: null,
   adress: '',
   adressComplements: '',
   groupe: '',
@@ -20,6 +20,7 @@ const room = ref<Room>({
   isAccessible: false,
   surface: '',
 })
+const pictureFile = ref<string | null>()
 const roomGroupe = ref<string[]>()
 const addError = ref<string>('')
 
@@ -31,13 +32,31 @@ onMounted(async () => {
   }
 })
 
+function handleImageChange(event) {
+  const file = event.target.files[0]
+
+  if (!file) return
+
+  const reader = new FileReader()
+
+  reader.onload = () => {
+    pictureFile.value = reader.result?.toString().split(',')[1] || null // Stocke la chaîne Base64 (sans le préfixe "data:image/...;base64,")
+  }
+
+  reader.readAsDataURL(file) // Convertit l’image en Base64
+}
+
 const addRoomFunction = async () => {
   addError.value = ''
   loading.value = true
 
   try {
     const token = localStorage.getItem('jwtToken')
-    const response = await AddRoom({ newRoom: room.value!, token: token! })
+    const response = await AddRoom({
+      newRoom: room.value!,
+      token: token!,
+      pictureFile: pictureFile.value,
+    })
     router.push(`/room/${response}`)
   } catch (error) {
     addError.value = error
@@ -61,11 +80,9 @@ const addRoomFunction = async () => {
     />
 
     <input
-      type="text"
-      v-model="room.picture"
-      placeholder="Image"
+      type="file"
+      @change="handleImageChange"
       class="border text-gray-600"
-      disabled
     />
 
     <input
