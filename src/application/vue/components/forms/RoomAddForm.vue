@@ -3,15 +3,14 @@ import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import type { Room } from '@/domain/models/Room'
 import { GetRoomGroupe, AddRoom } from '@/domain/services/roomService'
+import { usePictureUpload } from '@/application/vue/composables/usePictureUpload'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 
 const router = useRouter()
-
 const loading = ref(false)
 const room = ref<Room>({
   name: '',
-  picture: null,
   adress: '',
   adressComplements: '',
   groupe: '',
@@ -20,7 +19,9 @@ const room = ref<Room>({
   isAccessible: false,
   surface: '',
 })
-const pictureFile = ref<string | null>()
+
+const { pictureFile, errorPicture, handlePictureChange } = usePictureUpload()
+
 const roomGroupe = ref<string[]>()
 const addError = ref<string>('')
 
@@ -28,23 +29,9 @@ onMounted(async () => {
   try {
     roomGroupe.value = await GetRoomGroupe()
   } catch (error) {
-    addError.value = error
+    addError.value = error as string
   }
 })
-
-function handleImageChange(event) {
-  const file = event.target.files[0]
-
-  if (!file) return
-
-  const reader = new FileReader()
-
-  reader.onload = () => {
-    pictureFile.value = reader.result?.toString().split(',')[1] || null // Stocke la chaîne Base64 (sans le préfixe "data:image/...;base64,")
-  }
-
-  reader.readAsDataURL(file) // Convertit l’image en Base64
-}
 
 const addRoomFunction = async () => {
   addError.value = ''
@@ -59,7 +46,7 @@ const addRoomFunction = async () => {
     })
     router.push(`/room/${response}`)
   } catch (error) {
-    addError.value = error
+    addError.value = error as string
   }
 
   loading.value = false
@@ -81,7 +68,8 @@ const addRoomFunction = async () => {
 
     <input
       type="file"
-      @change="handleImageChange"
+      accept="image/*"
+      @change="handlePictureChange"
       class="border text-gray-600"
     />
 
@@ -109,7 +97,7 @@ const addRoomFunction = async () => {
     <input
       type="number"
       v-model="room.capacity"
-      placeholder="Capacité (Nombre de personne) *"
+      placeholder="Capacité (Nombre de personnes) *"
       required
       class="border"
     />
@@ -130,7 +118,7 @@ const addRoomFunction = async () => {
     <input
       type="text"
       v-model="room.surface"
-      placeholder="Intérieur et/ou Exterieur"
+      placeholder="Intérieur et/ou Extérieur"
       class="border"
     />
 
@@ -144,8 +132,8 @@ const addRoomFunction = async () => {
 
     <IconLoading v-else />
 
-    <div v-if="addError.length > 0">
-      <ErrorMessage>{{ addError }}</ErrorMessage>
+    <div v-if="addError || errorPicture">
+      <ErrorMessage>{{ addError || errorPicture }}</ErrorMessage>
     </div>
   </form>
 </template>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import type { Room } from '@/domain/models/Room'
+import { usePictureUpload } from '@/application/vue/composables/usePictureUpload'
 import { GetRoomGroupe, UpdateRoom } from '@/domain/services/roomService'
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
@@ -12,9 +14,12 @@ const props = defineProps<{
 
 const loading = ref(false)
 const room = ref<Room>({ ...props.roomProps })
+const { pictureFile, errorPicture, handlePictureChange } = usePictureUpload()
 const roomGroupe = ref<string[]>()
 const updateError = ref<string>('')
 const updateSucces = ref<string>('')
+
+const timerNumber = ref<number>(5)
 
 onMounted(async () => {
   try {
@@ -31,7 +36,11 @@ const updateRoomFunction = async () => {
 
   try {
     const token = localStorage.getItem('jwtToken')
-    const response = await UpdateRoom({ newRoom: room.value!, token: token! })
+    const response = await UpdateRoom({
+      newRoom: room.value!,
+      token: token!,
+      pictureFile: pictureFile.value,
+    })
     updateSucces.value = response
   } catch (error) {
     updateError.value = error
@@ -55,11 +64,10 @@ const updateRoomFunction = async () => {
     />
 
     <input
-      type="text"
-      v-model="room.picture"
-      placeholder="Image"
+      type="file"
+      accept="image/*"
+      @change="handlePictureChange"
       class="border text-gray-600"
-      disabled
     />
 
     <input
@@ -119,14 +127,21 @@ const updateRoomFunction = async () => {
 
     <IconLoading v-else />
 
-    <div v-if="updateSucces.length > 0">
+    <div v-if="updateSucces">
       <SuccessMessage>
         {{ updateSucces }}
       </SuccessMessage>
+
+      <RouterLink
+        to="/rooms-list"
+        class="block text-center p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+      >
+        Retourner à la liste des salles
+      </RouterLink>
     </div>
 
-    <div v-else-if="updateError.length > 0">
-      <ErrorMessage>{{ updateError }}</ErrorMessage>
+    <div v-else-if="updateError || errorPicture">
+      <ErrorMessage>{{ updateError || errorPicture }}</ErrorMessage>
     </div>
   </form>
 </template>

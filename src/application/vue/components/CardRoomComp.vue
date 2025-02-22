@@ -16,7 +16,7 @@ defineProps<{ room: Room }>()
     <div class="w-1/3 bg-cyan-100">
       <img
         class="w-full h-full object-cover"
-        :src="`data:image/png;base64,${room.picture}`"
+        :src="`data:image/png;base64,${room.pictureUrl}`"
         :alt="`Photo de la salle ${room.name}`"
       />
     </div>
