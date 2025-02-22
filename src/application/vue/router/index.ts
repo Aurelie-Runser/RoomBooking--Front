@@ -18,8 +18,9 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      redirect: 'profil',
+      // name: 'home',
+      // component: HomeView,
     },
 
     {

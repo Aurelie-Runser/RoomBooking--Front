@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { Search } from 'lucide-vue-next'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const searchQuery = ref('')
 const searchType = ref('all')
+
+const isAuthenticated = ref(!!localStorage.getItem('jwtToken'))
+watch(
+  () => router.currentRoute.value.path,
+  () => {
+    isAuthenticated.value = !!localStorage.getItem('jwtToken')
+  },
+  { immediate: true },
+)
 
 const handleSearch = (e: Event) => {
   if (searchQuery.value.length > 0) {
@@ -25,13 +34,7 @@ const handleSearch = (e: Event) => {
   >
     <ul class="flex justify-center items-center gap-6">
       <li class="hover:text-blue-500">
-        <RouterLink to="/">Accueil</RouterLink>
-      </li>
-      <li class="hover:text-blue-500">
         <RouterLink to="/rooms-list">Catalogue de Salles</RouterLink>
-      </li>
-      <li class="hover:text-blue-500">
-        <RouterLink to="/login">Connexion</RouterLink>
       </li>
       <li>
         <form @submit="handleSearch" class="flex gap-2">
@@ -62,11 +65,17 @@ const handleSearch = (e: Event) => {
       </li>
     </ul>
     <ul class="flex gap-6">
-      <li class="hover:text-blue-500">
-        <RouterLink to="/register">Inscription</RouterLink>
-      </li>
-      <li class="hover:text-blue-500">
+      <li v-if="isAuthenticated" class="hover:text-blue-500">
         <RouterLink to="/profil">Mon Profil</RouterLink>
+      </li>
+      <li v-if="!isAuthenticated" class="p-2 hover:text-blue-500">
+        <RouterLink to="/login">Connexion</RouterLink>
+      </li>
+      <li
+        v-if="!isAuthenticated"
+        class="bg-blue-200 p-2 rounded-sm hover:text-blue-500"
+      >
+        <RouterLink to="/register">Inscription</RouterLink>
       </li>
     </ul>
   </nav>

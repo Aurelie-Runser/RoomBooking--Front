@@ -24,8 +24,7 @@ onMounted(async () => {
     user.value = response
   } catch (error) {
     userError.value = error
-    localStorage.removeItem('jwtToken')
-    router.push('/')
+    LogoutFunction()
   }
   loading.value = false
 })
@@ -33,7 +32,7 @@ onMounted(async () => {
 const LogoutFunction = () => {
   localStorage.removeItem('jwtToken')
   localStorage.removeItem('isAdmin')
-  router.push('/')
+  router.push('/login')
 }
 </script>
 
@@ -48,7 +47,7 @@ const LogoutFunction = () => {
 
           <button
             @click="LogoutFunction"
-            class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+            class="p-4 bg-red-200 hover:bg-red-300 rounded-md"
           >
             Se déconnecter
           </button>
