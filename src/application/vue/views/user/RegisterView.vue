@@ -36,70 +36,90 @@ const registerFunction = async () => {
 </script>
 
 <template>
-  <main class="h-[200vh]">
-    <h1 class="text-4xl font-bold text-center my-4">Inscription</h1>
+  <main>
+    <h1>Inscription</h1>
 
     <form
       @submit.prevent="registerFunction"
-      class="grid grid-cols-2 w-96 mx-auto gap-4"
+      class="grid grid-cols-1 sm:grid-cols-2 max-w-xl mx-auto gap-4"
     >
-      <input
-        type="text"
-        v-model="registerRequest.lastname"
-        required
-        placeholder="Votre Nom de famille *"
-        class="border"
-      />
+      <div class="my-input">
+        <label for="lastname">Nom de Famille *</label>
+        <input
+          type="text"
+          id="lastname"
+          v-model="registerRequest.lastname"
+          required
+          class="border"
+        />
+      </div>
 
-      <input
-        type="text"
-        v-model="registerRequest.firstname"
-        placeholder="Votre Prénom"
-        class="border"
-      />
+      <div class="my-input">
+        <label for="firstname">Prénom</label>
+        <input
+          type="text"
+          id="firstname"
+          v-model="registerRequest.firstname"
+          class="border"
+        />
+      </div>
 
-      <input
-        type="email"
-        v-model="registerRequest.email"
-        required
-        placeholder="Votre email *"
-        class="border"
-      />
+      <div class="my-input">
+        <label for="email">Adresse Mail *</label>
+        <input
+          type="email"
+          id="email"
+          v-model="registerRequest.email"
+          required
+          class="border"
+        />
+      </div>
 
-      <input
-        type="text"
-        v-model="registerRequest.password"
-        required
-        placeholder="Votre Mot de passe *"
-        class="border"
-      />
+      <div class="my-input">
+        <label for="password">Mot de passe *</label>
+        <input
+          type="password"
+          id="password"
+          v-model="registerRequest.password"
+          required
+          class="border"
+        />
+      </div>
 
-      <input
-        type="text"
-        v-model="registerRequest.company"
-        placeholder="Votre Entreprise"
-        class="border"
-      />
+      <div class="my-input">
+        <label for="company">Votre Entreprise</label>
+        <input
+          type="text"
+          id="company"
+          v-model="registerRequest.company"
+          class="border"
+        />
+      </div>
 
-      <input
-        type="text"
-        v-model="registerRequest.job"
-        placeholder="Votre Poste"
-        class="border"
-      />
+      <div class="my-input">
+        <label for="job">Votre Poste</label>
+        <input
+          type="text"
+          id="job"
+          v-model="registerRequest.job"
+          class="border"
+        />
+      </div>
 
       <button
         v-if="!loading"
         type="submit"
-        class="col-span-2 p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+        class="col-span-full p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
       >
         S'inscrire
       </button>
 
       <IconLoading v-else />
 
-      <div class="col-span-2">
-        <RouterLink to="/login">J'ai déjà un compte</RouterLink>
+      <div class="col-span-full">
+        <RouterLink to="/login" class="hover:text-blue-700">
+          J'ai déjà un compte
+        </RouterLink>
 
         <div v-if="resgiterError.length > 0">
           <ErrorMessage>

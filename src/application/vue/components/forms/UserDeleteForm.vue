@@ -50,7 +50,7 @@ const LogoutFunction = () => {
   <button
     v-if="deleteSucces.length == 0"
     @click="deleteUserFunction"
-    class="p-4 bg-gray-800 hover:bg-gray-900 text-white rounded-md"
+    class="p-4 bg-gray-900 hover:bg-gray-700 text-white rounded-md"
   >
     Supprimer mon compte
   </button>

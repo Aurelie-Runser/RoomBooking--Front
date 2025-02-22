@@ -38,10 +38,10 @@ const LogoutFunction = () => {
 
 <template>
   <main v-if="!loading">
-    <div v-if="user" class="mx-5">
-      <h1 class="text-4xl font-bold text-center my-4">Votre Profil</h1>
+    <div v-if="user" class="mx-auto">
+      <h1>Votre Profil</h1>
 
-      <div class="flex flex-wrap gap-x-4 gap-y-20">
+      <div class="flex flex-wrap justify-around gap-x-4 gap-y-20">
         <div class="flex flex-col gap-10 justify-start">
           <UserUpdateForm :user="user" />
 

@@ -31,18 +31,18 @@ const handleSearch = (e: Event) => {
 <template>
   <nav class="sticky top-0 p-4 border bg-blue-50">
     <ul class="flex flex-wrap justify-evenly items-center gap-x-2 gap-y-4">
-      <li class="hover:text-blue-500">
+      <li class="hover:text-blue-700">
         <RouterLink to="/rooms-list">Catalogue de Salles</RouterLink>
       </li>
-      <li v-if="isAuthenticated" class="hover:text-blue-500">
+      <li v-if="isAuthenticated" class="hover:text-blue-700">
         <RouterLink to="/profil">Mon Profil</RouterLink>
       </li>
-      <li v-if="!isAuthenticated" class="p-2 hover:text-blue-500">
+      <li v-if="!isAuthenticated" class="p-2 hover:text-blue-700">
         <RouterLink to="/login">Connexion</RouterLink>
       </li>
       <li
         v-if="!isAuthenticated"
-        class="bg-blue-200 p-2 rounded-sm hover:text-blue-500"
+        class="bg-blue-200 p-2 rounded-sm hover:bg-blue-300"
       >
         <RouterLink to="/register">Inscription</RouterLink>
       </li>

@@ -32,25 +32,32 @@ const loginFunction = async () => {
 </script>
 
 <template>
-  <main class="h-[200vh]">
-    <h1 class="text-4xl font-bold text-center my-4">Connexion</h1>
+  <main>
+    <h1>Connexion</h1>
 
     <form
       @submit.prevent="loginFunction"
       class="flex flex-col w-80 mx-auto gap-4"
     >
-      <input
-        type="email"
-        v-model="loginRequest.email"
-        placeholder="Votre email"
-        class="border"
-      />
-      <input
-        type="text"
-        v-model="loginRequest.password"
-        placeholder="Votre Mot de passe"
-        class="border"
-      />
+      <div class="my-input">
+        <label for="email">Votre adresse mail</label>
+        <input
+          type="email"
+          id="email"
+          v-model="loginRequest.email"
+          class="border"
+        />
+      </div>
+
+      <div class="my-input">
+        <label for="password">Votre Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          v-model="loginRequest.password"
+          class="border"
+        />
+      </div>
 
       <button
         v-if="!loading"
@@ -62,7 +69,9 @@ const loginFunction = async () => {
 
       <IconLoading v-else />
 
-      <RouterLink to="/register">Je n'ai pas de compte</RouterLink>
+      <RouterLink to="/register" class="hover:text-blue-700"
+        >Je n'ai pas de compte</RouterLink
+      >
 
       <div v-if="logError.length > 0">
         <ErrorMessage>

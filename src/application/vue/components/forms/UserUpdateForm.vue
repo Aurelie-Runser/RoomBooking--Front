@@ -35,53 +35,61 @@ const updateUserFunction = async () => {
 <template>
   <form
     @submit.prevent="updateUserFunction"
-    class="grid grid-cols-1 w-96 gap-4 h-fit"
+    class="grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit"
   >
-    <input
-      type="text"
-      v-model="user.lastname"
-      placeholder="Votre Nom de famille *"
-      required
-      class="border"
-    />
+    <div class="my-input">
+      <label for="lastname">Nom de Famille *</label>
+      <input
+        type="text"
+        id="lastname"
+        v-model="user.lastname"
+        placeholder="Votre Nom de famille *"
+        class="border"
+      />
+    </div>
 
-    <input
-      type="text"
-      v-model="user.firstname"
-      placeholder="Votre Prénom"
-      class="border"
-    />
+    <div class="my-input">
+      <label for="firstname">Prénom</label>
+      <input
+        type="text"
+        id="firstname"
+        v-model="user.firstname"
+        class="border"
+      />
+    </div>
 
-    <input
-      type="email"
-      v-model="user.email"
-      placeholder="Votre email *"
-      readonly
-      class="border text-gray-600"
-    />
+    <div class="my-input">
+      <label for="email">Adresse Mail</label>
+      <input
+        type="email"
+        id="email"
+        v-model="user.email"
+        disabled
+        class="border text-gray-500 cursor-not-allowed"
+      />
+    </div>
 
-    <input
-      type="text"
-      v-model="user.password"
-      placeholder="Votre Mot de passe *"
-      class="border"
-    />
+    <div class="my-input">
+      <label for="password">Mot de passe *</label>
+      <input
+        type="password"
+        id="password"
+        v-model="user.password"
+        class="border"
+      />
+    </div>
 
-    <input
-      type="text"
-      v-model="user.company"
-      placeholder="Votre Entreprise"
-      class="border"
-    />
+    <div class="my-input">
+      <label for="company">Votre Entreprise</label>
+      <input type="text" id="company" v-model="user.company" class="border" />
+    </div>
 
-    <input
-      type="text"
-      v-model="user.job"
-      placeholder="Votre Poste"
-      class="border"
-    />
+    <div class="my-input">
+      <label for="job">Votre Poste</label>
+      <input type="text" id="job" v-model="user.job" class="border" />
+    </div>
 
-    <select name="role" id="role" v-model="user.role">
+    <select class="col-span-full" name="role" id="role" v-model="user.role">
       <option value="user">User</option>
       <option value="admin">Admin</option>
     </select>
@@ -89,18 +97,18 @@ const updateUserFunction = async () => {
     <button
       v-if="!loading"
       type="submit"
-      class="w-fit p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+      class="col-span-full p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
     >
       Enregistrer les modifications
     </button>
 
     <IconLoading v-else />
 
-    <div v-if="updateSucces.length > 0">
+    <div v-if="updateSucces" class="col-span-full">
       <SuccessMessage>{{ updateSucces }}</SuccessMessage>
     </div>
 
-    <div v-else-if="updateError.length > 0">
+    <div v-else-if="updateError" class="col-span-full">
       <ErrorMessage>{{ updateError }}</ErrorMessage>
     </div>
   </form>
