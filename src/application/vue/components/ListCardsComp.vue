@@ -46,7 +46,7 @@ const deleteRoomFunction = async (roomId: number) => {
   </div>
 
   <ul
-    class="w-full m-auto p-2 grid grid-cols-[repeat(auto-fit,minmax(400px,1fr))] gap-x-6 gap-y-3 place-items-center"
+    class="w-full max-w-screen-xl m-auto p-2 grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-x-3 gap-y-8"
   >
     <li v-for="(room, index) in listRoomsProps" :key="index">
       <CardRoom :room="room" />

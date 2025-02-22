@@ -11,9 +11,9 @@ defineProps<{ room: Room }>()
 <template>
   <RouterLink
     :to="`/room/${room.id}`"
-    class="flex max-w-lg gap-4 hover:bg-cyan-50 cursor-pointer"
+    class="block max-w-lg rounded-lg overflow-hidden hover:bg-cyan-50 cursor-pointer"
   >
-    <div class="w-1/3 bg-cyan-100">
+    <div class="w-full h-52 bg-cyan-100">
       <img
         class="w-full h-full object-cover"
         :src="`data:image/png;base64,${room.pictureUrl}`"
@@ -21,7 +21,7 @@ defineProps<{ room: Room }>()
       />
     </div>
 
-    <div class="flex flex-col justify-between pr-1">
+    <div class="p-2 flex flex-col justify-between pr-1">
       <h4 class="w-full text-2xl font-semibold">{{ room.name }}</h4>
       <p class="flex gap-1 items-center mb-2">
         <IconPing /><span v-html="room.adress"></span>
