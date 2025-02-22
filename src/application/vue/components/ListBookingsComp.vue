@@ -42,32 +42,32 @@ onMounted(async () => {
       v-if="listBookings && listRoomsFind"
       class="flex flex-wrap gap-x-4 gap-y-10"
     >
-      <div class="basis-10 min-w-fit">
-        <h2 class="text-2xl font-semibold mb-4">Réservations Futures</h2>
+      <div class="basis-10 min-w-72">
+        <h2>Réservations Futures</h2>
 
-        <div>
-          <ul
-            class="w-full p-2 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-x-6 gap-y-3"
-          >
-            <li v-for="(booking, index) in listBookingsFutur" :key="index">
-              <CardBooking :booking="booking" />
-            </li>
-          </ul>
-        </div>
+        <ul
+          v-if="listBookingsFutur && listBookingsFutur.length > 0"
+          class="w-full p-2 grid gap-4"
+        >
+          <li v-for="(booking, index) in listBookingsFutur" :key="index">
+            <CardBooking :booking="booking" />
+          </li>
+        </ul>
+        <div v-else>Aucune réservation prévus.</div>
       </div>
 
-      <div class="basis-10 min-w-fit">
-        <h2 class="text-2xl font-semibold mb-4">Réservations Passées</h2>
+      <div class="basis-10 min-w-72">
+        <h2>Réservations Passées</h2>
 
-        <div>
-          <ul
-            class="w-full p-2 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-x-6 gap-y-3"
-          >
-            <li v-for="(booking, index) in listBookingsPast" :key="index">
-              <CardBooking :booking="booking" />
-            </li>
-          </ul>
-        </div>
+        <ul
+          v-if="listBookingsPast && listBookingsPast.length > 0"
+          class="w-full p-2 grid gap-4"
+        >
+          <li v-for="(booking, index) in listBookingsPast" :key="index">
+            <CardBooking :booking="booking" />
+          </li>
+        </ul>
+        <div v-else>Aucune réservation passées.</div>
       </div>
     </div>
 
