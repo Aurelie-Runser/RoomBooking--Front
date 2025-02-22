@@ -19,6 +19,11 @@ const loading = ref(true)
 onMounted(async () => {
   try {
     room.value = await GetRoomById(roomId)
+
+    if (room?.value?.pictureUrl) {
+      room.value.picture = `data:image/png;base64,${room?.value?.pictureUrl}`
+    }
+
     roomFind.value = true
   } catch (error) {
     console.error('Erreur :', error)
@@ -37,7 +42,7 @@ onMounted(async () => {
       <div class="flex flex-wrap gap-4">
         <img
           class="max-w-full"
-          :src="`/roomsPictures/${room.picture}.jpg`"
+          :src="`${room.picture}`"
           :alt="`Photo de la salle ${room.name}`"
         />
 

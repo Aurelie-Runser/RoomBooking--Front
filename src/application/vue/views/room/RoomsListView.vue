@@ -50,6 +50,7 @@ watch(
 onMounted(async () => {
   try {
     listRooms.value = await GetRooms()
+
     listRoomsFind.value = true
   } catch (error) {
     console.error('Erreur :', error)
