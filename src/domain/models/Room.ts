@@ -1,7 +1,8 @@
 export type Room = {
   id: number
   name: string
-  picture: string | null
+  picture: File | string | null
+  pictureUrl: string | null
   adress: string
   adressComplements: string | null
   groupe: string
@@ -14,6 +15,7 @@ export type Room = {
 export type updateRoomRequestModel = {
   newRoom: Room
   token: string
+  pictureFile: string | null | undefined
 }
 
 export type deleteRoomRequestModel = {
