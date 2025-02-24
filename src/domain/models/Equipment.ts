@@ -1,5 +1,5 @@
 export type Equipment = {
-  Id: number
+  readonly Id: number
   IdBooking: number
   materiel: string
   number: number

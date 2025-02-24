@@ -13,6 +13,7 @@ import ListeBookings from '@/application/vue/components/ListBookingsComp.vue'
 
 const router = useRouter()
 
+const isAdmin = localStorage.getItem('isAdmin') == 'true'
 const loading = ref(true)
 const user = ref<UserLog>()
 const userError = ref<string>('')
@@ -42,8 +43,16 @@ const LogoutFunction = () => {
       <h1>Votre Profil</h1>
 
       <div class="flex flex-wrap justify-around gap-x-4 gap-y-20">
-        <div class="flex flex-col gap-10 justify-start w-full max-w-md">
-          <UserUpdateForm :user="user" />
+        <div class="flex flex-col gap-4 justify-start w-full max-w-md">
+          <UserUpdateForm :user="user" class="mb-4" />
+
+          <RouterLink
+            v-if="isAdmin"
+            to="/admin"
+            class="mb-4 p-4 text-center bg-cyan-100 hover:bg-cyan-200 rounded-md"
+          >
+            Vue Administrateur
+          </RouterLink>
 
           <button
             @click="LogoutFunction"

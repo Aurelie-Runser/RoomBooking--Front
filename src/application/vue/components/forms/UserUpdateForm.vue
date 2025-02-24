@@ -78,11 +78,6 @@ const updateUserFunction = async () => {
       <input type="text" id="job" v-model="user.job" class="border" />
     </div>
 
-    <select class="col-span-full" name="role" id="role" v-model="user.role">
-      <option value="user">User</option>
-      <option value="admin">Admin</option>
-    </select>
-
     <button
       v-if="!loading"
       type="submit"

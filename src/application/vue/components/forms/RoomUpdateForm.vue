@@ -116,31 +116,33 @@ const updateRoomFunction = async () => {
       <input type="text" id="surface" v-model="room.surface" />
     </div>
 
-    <button
-      v-if="!loading"
-      type="submit"
-      class="p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
-    >
-      Enregistrer les modifications
-    </button>
-
-    <IconLoading v-else />
-
-    <div v-if="updateSucces">
-      <SuccessMessage>
-        {{ updateSucces }}
-      </SuccessMessage>
-
-      <RouterLink
-        to="/rooms-list"
-        class="block text-center p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+    <div class="col-span-full">
+      <button
+        v-if="!loading"
+        type="submit"
+        class="w-full p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
       >
-        Retourner à la liste des salles
-      </RouterLink>
-    </div>
+        Enregistrer les modifications
+      </button>
 
-    <div v-else-if="updateError || errorPicture">
-      <ErrorMessage>{{ updateError || errorPicture }}</ErrorMessage>
+      <IconLoading v-else />
+
+      <div v-if="updateSucces">
+        <SuccessMessage>
+          {{ updateSucces }}
+        </SuccessMessage>
+
+        <RouterLink
+          to="/rooms-list"
+          class="block w-fit text-center mx-auto p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+        >
+          Retourner à la liste des salles
+        </RouterLink>
+      </div>
+
+      <div v-else-if="updateError || errorPicture">
+        <ErrorMessage>{{ updateError || errorPicture }}</ErrorMessage>
+      </div>
     </div>
   </form>
 </template>

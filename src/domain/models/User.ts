@@ -1,16 +1,23 @@
 export type Users = {
-  id: number
+  readonly id: number
   lastname: string
   firstname: string | null
 }
 
 export type UserLog = {
-  id: number
+  readonly id: number
   lastname: string
   firstname: string | null
-  email: string
+  readonly email: string
   password: string
   company: string | null
   job: string | null
+  role: string
+}
+
+export type UsersAdmin = {
+  readonly id: number
+  lastname: string
+  firstname: string | null
   role: string
 }
