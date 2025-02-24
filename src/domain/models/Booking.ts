@@ -1,7 +1,7 @@
 import type { Equipment, NewEquipment } from './Equipment'
 
 export type Booking = {
-  id: number
+  readonly id: number
   name: string
   description: string
   idRoom: number
@@ -13,7 +13,7 @@ export type Booking = {
 }
 
 export type BookingDto = {
-  id: number
+  readonly id: number
   name: string
   idRoom: number
   roomName: string

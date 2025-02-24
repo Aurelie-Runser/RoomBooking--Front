@@ -1,5 +1,5 @@
 export type Room = {
-  id: number
+  readonly id: number
   name: string
   picture: File | string | null
   pictureUrl: string | null

@@ -9,7 +9,7 @@ export async function GetRooms() {
     const response = await apiClient.get('/room')
     return response.data
   } catch (error) {
-    console.error('Erreur lors de la récupération des salles :')
+    console.error('Erreur lors de la récupération des salles :', error)
     throw (
       error?.response?.data?.message ||
       Object.values(error?.response?.data?.errors).flat().join('. ') ||
