@@ -14,3 +14,10 @@ export type UserLog = {
   job: string | null
   role: string
 }
+
+export type UsersAdmin = {
+  id: number
+  lastname: string
+  firstname: string | null
+  role: string
+}
