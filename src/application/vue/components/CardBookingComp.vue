@@ -2,29 +2,40 @@
 import type { BookingDto } from '@/domain/models/Booking'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
-import { ref } from 'vue'
+
+const colorClasses = {
+  red: 'bg-red-50 hover:bg-red-100',
+  blue: 'bg-blue-50 hover:bg-blue-100',
+  cyan: 'bg-cyan-50 hover:bg-cyan-100',
+  amber: 'bg-amber-50 hover:bg-amber-100',
+  purple: 'bg-purple-50 hover:bg-purple-100',
+}
 
 function cardColor(booking: BookingDto) {
   const dateFrom = new Date(booking.day + 'T' + booking.timeFrom)
   const dateTo = new Date(booking.day + 'T' + booking.timeTo)
   const today = new Date()
-  const color = ref('cyan')
+  let color = 'cyan'
 
-  if (booking.statut.toLowerCase() == 'annuler') {
-    color.value = 'red'
-  } else if (booking.statut.toLowerCase() == 'terminer') color.value = 'blue'
-  else if (dateFrom.getDay() == today.getDay()) {
+  if (booking.statut.toLowerCase() === 'annuler') {
+    color = 'red'
+  } else if (booking.statut.toLowerCase() === 'terminer') {
+    color = 'blue'
+  } else if (dateFrom.getDay() === today.getDay()) {
     if (
       dateFrom.getTime() <= today.getTime() &&
       today.getTime() < dateTo.getTime()
     ) {
-      color.value = 'amber'
+      color = 'amber'
     } else {
-      color.value = 'purple'
+      color = 'purple'
     }
   }
 
-  return `bg-${color.value}-50 hover:bg-${color.value}-100`
+  return (
+    colorClasses[color as keyof typeof colorClasses] ||
+    'bg-gray-50 hover:bg-gray-100'
+  )
 }
 
 defineProps<{
