@@ -15,6 +15,7 @@ export type Booking = {
 export type BookingDto = {
   readonly id: number
   name: string
+  description: string
   idRoom: number
   roomName: string
   idOrganizer: number
@@ -24,6 +25,7 @@ export type BookingDto = {
   timeFrom: string
   timeTo: string
   statut: string
+  guestsId: number[]
   guestsName: string[]
   equipmentsList: Equipment[]
 }

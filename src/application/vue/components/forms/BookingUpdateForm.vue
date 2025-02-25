@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import SuccessMessage from '@/application/vue/components/SuccessMessageComp.vue'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
-import type { newBooking } from '@/domain/models/Booking'
+import type { BookingDto } from '@/domain/models/Booking'
 import type { NewEquipment } from '@/domain/models/Equipment'
 import type { Users } from '@/domain/models/User'
-import { AddBooking } from '@/domain/services/bookingService'
+import { UpdateBooking } from '@/domain/services/bookingService'
 import { GetAvailableEquipments } from '@/domain/services/equipmentService'
 import { GetUsers } from '@/domain/services/userService'
-import { useAvailableHours } from '@/application/vue/composables/useAvailableHours'
 import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useAvailableHours } from '@/application/vue/composables/useAvailableHours'
 
-const router = useRouter()
-const route = useRoute()
-const roomId = Number(route.params.id)
+const props = defineProps<{
+  bookingProps: BookingDto
+}>()
 
 const today = new Date()
 const dateToday =
@@ -24,55 +24,56 @@ const dateToday =
   String(today.getDate()).padStart(2, '0')
 
 const loading = ref(false)
-const booking = ref<newBooking>({
-  name: '',
-  description: '',
-  idRoom: roomId,
-  day: dateToday,
-  timeFrom: '',
-  timeTo: '',
-})
+const booking = ref<BookingDto>({ ...props.bookingProps })
 
 const users = ref<Users[]>()
 const guests = ref<number[]>([])
 const equipments = ref<string[]>()
 const equipmentsForBooking = ref<NewEquipment[]>([])
 
-const addError = ref<string>('')
+const updateError = ref<string | unknown>('')
+const updateSucces = ref<string | unknown>('')
+
+const { availableStartHours, availableEndHours, errorHours } =
+  useAvailableHours(booking.value, booking.value.idRoom)
+if (errorHours) updateError.value = errorHours
 
 onMounted(async () => {
   try {
     users.value = await GetUsers()
     equipments.value = await GetAvailableEquipments()
+
+    equipmentsForBooking.value = booking.value.equipmentsList.map(eq => ({
+      materiel: eq.materiel,
+      number: eq.number,
+    }))
+
+    guests.value = booking.value.guestsId
   } catch (error) {
-    addError.value = error
+    updateError.value = error
   }
 })
 
 const addBookingFunction = async () => {
-  addError.value = ''
+  updateError.value = ''
   loading.value = true
 
   try {
     const token = localStorage.getItem('jwtToken')
 
-    const response = await AddBooking({
+    const response = await UpdateBooking({
       newBooking: booking.value!,
       token: token!,
       guests: guests.value,
       equipments: equipmentsForBooking.value,
     })
-    router.push(`/booking/${response}`)
+    updateSucces.value = response
   } catch (error) {
-    addError.value = error
+    updateError.value = error
   }
 
   loading.value = false
 }
-
-const { availableStartHours, availableEndHours, errorHours } =
-  useAvailableHours(booking.value, roomId)
-if (errorHours) addError.value = errorHours
 
 function toggleGuest(userId: number) {
   const index = guests.value.indexOf(userId)
@@ -125,7 +126,16 @@ const getEquipment = (materiel: string): NewEquipment => {
         ></textarea>
       </div>
 
-      <div class="col-span-full my-input">
+      <!-- <div class="my-input">
+        <label for="date">Salle *</label>
+        <select v-model="booking.idRoom" id="timeFrom" required class="border">
+          <option v-for="hour in availableStartHours" :key="hour" :value="hour">
+            {{ hour }}
+          </option>
+        </select>
+      </div> -->
+
+      <div class="my-input">
         <label for="date">Jour *</label>
         <input
           type="date"
@@ -144,11 +154,7 @@ const getEquipment = (materiel: string): NewEquipment => {
           required
           class="border"
         >
-          <option
-            v-for="(hour, index) in availableStartHours"
-            :key="index"
-            :value="hour"
-          >
+          <option v-for="hour in availableStartHours" :key="hour" :value="hour">
             {{ hour }}
           </option>
         </select>
@@ -158,11 +164,7 @@ const getEquipment = (materiel: string): NewEquipment => {
       <div class="my-input">
         <label for="timeTo">Heure de Fin *</label>
         <select v-model="booking.timeTo" id="timeTo" required class="border">
-          <option
-            v-for="(hour, index) in availableEndHours"
-            :key="index"
-            :value="hour"
-          >
+          <option v-for="hour in availableEndHours" :key="hour" :value="hour">
             {{ hour }}
           </option>
         </select>
@@ -224,13 +226,26 @@ const getEquipment = (materiel: string): NewEquipment => {
       type="submit"
       class="col-span-full w-60 mx-auto p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
     >
-      Réserver
+      Enregistrer les modifications
     </button>
 
     <IconLoading v-else />
 
-    <div v-if="addError.length > 0" class="col-span-full mx-auto">
-      <ErrorMessage>{{ addError }}</ErrorMessage>
+    <div v-if="updateSucces">
+      <SuccessMessage>
+        {{ updateSucces }}
+      </SuccessMessage>
+
+      <RouterLink
+        to="/profil"
+        class="block w-fit text-center mx-auto p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+      >
+        Retourner à mon profil
+      </RouterLink>
+    </div>
+
+    <div v-if="updateError.length > 0" class="col-span-full mx-auto">
+      <ErrorMessage>{{ updateError }}</ErrorMessage>
     </div>
   </form>
 </template>

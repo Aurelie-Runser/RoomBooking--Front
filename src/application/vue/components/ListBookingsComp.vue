@@ -12,21 +12,31 @@ const listRoomsFind = ref<boolean>(false)
 const loading = ref(true)
 const token = localStorage.getItem('jwtToken')
 
+const props = defineProps<{
+  userId: number
+}>()
+
+const userId = ref<number>(props.userId)
+
 onMounted(async () => {
   try {
     listBookings.value = await GetBookingsUser(token!)
 
     listBookingsFutur.value = listBookings.value
       ?.sort(
-        (b1, b2) => new Date(b2.day).getTime() - new Date(b1.day).getTime(),
+        (b1, b2) =>
+          new Date(b1.day + 'T' + b1.timeFrom).getTime() -
+          new Date(b2.day + 'T' + b2.timeFrom).getTime(),
       )
-      .filter(booking => new Date(booking.day) >= new Date())
+      .filter(booking => booking.statut.toLowerCase() != 'terminer')
 
     listBookingsPast.value = listBookings.value
       ?.sort(
-        (b1, b2) => new Date(b2.day).getTime() - new Date(b1.day).getTime(),
+        (b1, b2) =>
+          new Date(b2.day + 'T' + b2.timeFrom).getTime() -
+          new Date(b1.day + 'T' + b1.timeFrom).getTime(),
       )
-      .filter(booking => new Date(booking.day) < new Date())
+      .filter(booking => booking.statut.toLowerCase() == 'terminer')
 
     listRoomsFind.value = true
   } catch (error) {
@@ -51,6 +61,16 @@ onMounted(async () => {
         >
           <li v-for="(booking, index) in listBookingsFutur" :key="index">
             <CardBooking :booking="booking" />
+
+            <div v-if="booking.idOrganizer == userId">
+              <RouterLink :to="`/booking/${booking.id}/update`">
+                <button
+                  class="mt-1 p-2 bg-amber-200 hover:bg-amber-300 rounded-md"
+                >
+                  Mettre à jour
+                </button>
+              </RouterLink>
+            </div>
           </li>
         </ul>
         <div v-else>Aucune réservation prévus.</div>

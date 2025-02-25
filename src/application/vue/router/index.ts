@@ -7,6 +7,7 @@ import RoomAddView from '@/application/vue/views/room/RoomAddView.vue'
 import RoomUpdateView from '@/application/vue/views/room/RoomUpdateView.vue'
 
 import BookingView from '@/application/vue/views/booking/BookingView.vue'
+import BookingUpdateView from '@/application/vue/views/booking/BookingUpdateView.vue'
 import BookingAddView from '@/application/vue/views/booking/BookingAddView.vue'
 
 import LoginView from '@/application/vue/views/user/LoginView.vue'
@@ -66,10 +67,22 @@ const router = createRouter({
     },
 
     {
-      path: '/booking/:id',
-      name: 'booking',
-      component: BookingView,
-      meta: { requiresAuth: true },
+      path: '/booking/',
+      redirect: 'profil',
+      children: [
+        {
+          path: ':id',
+          name: 'booking',
+          component: BookingView,
+          meta: { requiresAuth: true },
+        },
+        {
+          path: ':id/update',
+          name: 'booking-update',
+          component: BookingUpdateView,
+          meta: { requiresAuth: true },
+        },
+      ],
     },
 
     {

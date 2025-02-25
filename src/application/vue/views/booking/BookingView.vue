@@ -73,7 +73,12 @@ const canCancelBooking = () => {
 
       <div class="flex flex-wrap gap-4">
         <div class="max-w-full flex flex-col gap-2">
-          <p>Salle : {{ booking.roomName }}</p>
+          <p>
+            Salle :
+            <RouterLink :to="`/room/${booking.idRoom}`" class="text-blue-700">
+              {{ booking.roomName }}
+            </RouterLink>
+          </p>
           <p>
             Organisateur : {{ booking.organizerLastname }}
             {{ booking.organizerFirstname }}
@@ -92,6 +97,11 @@ const canCancelBooking = () => {
               >{{ booking.statut }}</span
             >
           </p>
+
+          <div>
+            <p>Description :</p>
+            <p>{{ booking.description }}</p>
+          </div>
 
           <p>Participants :</p>
           <ul class="list-disc">
@@ -121,9 +131,9 @@ const canCancelBooking = () => {
               :disabled="cancelLoading"
               class="px-4 py-2 bg-red-200 hover:bg-red-300 rounded-md disabled:opacity-50"
             >
-              <span class="font-bold text-red-700"
-                >Annuler cette réservation</span
-              >
+              <span class="font-bold text-red-700">
+                Annuler cette réservation
+              </span>
             </button>
           </div>
 
