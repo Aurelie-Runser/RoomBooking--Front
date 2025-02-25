@@ -33,7 +33,11 @@ export function useAvailableHours(booking: newBooking, roomId: number) {
     }
   }
 
-  onMounted(async () => fetchAvailableHours)
+  onMounted(async () => {
+    if (booking.day) {
+      fetchAvailableHours()
+    }
+  })
 
   watch(() => booking.day, fetchAvailableHours)
 
