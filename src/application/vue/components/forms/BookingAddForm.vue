@@ -70,10 +70,9 @@ const addBookingFunction = async () => {
   loading.value = false
 }
 
-const { availableStartHours, availableEndHours } = useAvailableHours(
-  booking.value,
-  roomId,
-)
+const { availableStartHours, availableEndHours, errorHours } =
+  useAvailableHours(booking.value, roomId)
+if (errorHours) addError.value = errorHours
 
 function toggleGuest(userId: number) {
   const index = guests.value.indexOf(userId)
@@ -230,7 +229,7 @@ const getEquipment = (materiel: string): NewEquipment => {
 
     <IconLoading v-else />
 
-    <div v-if="addError" class="col-span-full mx-auto">
+    <div v-if="addError.length > 0" class="col-span-full mx-auto">
       <ErrorMessage>{{ addError }}</ErrorMessage>
     </div>
   </form>
