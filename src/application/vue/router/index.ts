@@ -15,6 +15,8 @@ import RegisterView from '@/application/vue/views/user/RegisterView.vue'
 import ProfilView from '@/application/vue/views/user/ProfilView.vue'
 import AdminView from '@/application/vue/views/user/AdminView.vue'
 
+import NotFound from '@/application/vue/views/NotFound.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -101,6 +103,8 @@ const router = createRouter({
       component: ProfilView,
       meta: { requiresAuth: true },
     },
+
+    { path: '/:pathMatch(.*)*', component: NotFound },
   ],
 })
 
