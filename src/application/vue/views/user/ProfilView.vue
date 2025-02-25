@@ -64,7 +64,7 @@ const LogoutFunction = () => {
           <UserDeleteForm :userId="user.id" />
         </div>
 
-        <ListeBookings />
+        <ListeBookings :userId="user.id" />
       </div>
     </div>
     <div v-else>

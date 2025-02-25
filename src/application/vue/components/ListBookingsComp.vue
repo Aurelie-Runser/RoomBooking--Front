@@ -12,6 +12,12 @@ const listRoomsFind = ref<boolean>(false)
 const loading = ref(true)
 const token = localStorage.getItem('jwtToken')
 
+const props = defineProps<{
+  userId: number
+}>()
+
+const userId = ref<number>(props.userId)
+
 onMounted(async () => {
   try {
     listBookings.value = await GetBookingsUser(token!)
@@ -55,6 +61,16 @@ onMounted(async () => {
         >
           <li v-for="(booking, index) in listBookingsFutur" :key="index">
             <CardBooking :booking="booking" />
+
+            <div v-if="booking.idOrganizer == userId">
+              <RouterLink :to="`/booking/${booking.id}/update`">
+                <button
+                  class="mt-1 p-2 bg-amber-200 hover:bg-amber-300 rounded-md"
+                >
+                  Mettre à jour
+                </button>
+              </RouterLink>
+            </div>
           </li>
         </ul>
         <div v-else>Aucune réservation prévus.</div>
