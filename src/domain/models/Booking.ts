@@ -25,6 +25,7 @@ export type BookingDto = {
   timeFrom: string
   timeTo: string
   statut: string
+  guestsId: number[]
   guestsName: string[]
   equipmentsList: Equipment[]
 }

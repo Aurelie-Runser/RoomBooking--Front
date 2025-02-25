@@ -44,10 +44,10 @@ export async function AddBooking(addBookingRequest: updateBookingRequestModel) {
 }
 
 export async function UpdateBooking(
-  updateRoomRequest: updateBookingRequestModel,
+  updateBookingRequest: updateBookingRequestModel,
 ) {
   try {
-    const response = await apiClient.put('/booking', updateRoomRequest)
+    const response = await apiClient.put('/booking', updateBookingRequest)
     return response.data.message
   } catch (error) {
     console.error('Erreur lors de la modification de la réservation :', error)
