@@ -28,7 +28,7 @@ const booking = ref<newBooking>({
   name: '',
   description: '',
   idRoom: roomId,
-  day: '',
+  day: dateToday,
   timeFrom: '',
   timeTo: '',
 })
