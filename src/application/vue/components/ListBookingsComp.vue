@@ -18,15 +18,19 @@ onMounted(async () => {
 
     listBookingsFutur.value = listBookings.value
       ?.sort(
-        (b1, b2) => new Date(b2.day).getTime() - new Date(b1.day).getTime(),
+        (b1, b2) =>
+          new Date(b1.day + 'T' + b1.timeFrom).getTime() -
+          new Date(b2.day + 'T' + b2.timeFrom).getTime(),
       )
-      .filter(booking => new Date(booking.day) >= new Date())
+      .filter(booking => booking.statut.toLowerCase() != 'terminer')
 
     listBookingsPast.value = listBookings.value
       ?.sort(
-        (b1, b2) => new Date(b2.day).getTime() - new Date(b1.day).getTime(),
+        (b1, b2) =>
+          new Date(b2.day + 'T' + b2.timeFrom).getTime() -
+          new Date(b1.day + 'T' + b1.timeFrom).getTime(),
       )
-      .filter(booking => new Date(booking.day) < new Date())
+      .filter(booking => booking.statut.toLowerCase() == 'terminer')
 
     listRoomsFind.value = true
   } catch (error) {

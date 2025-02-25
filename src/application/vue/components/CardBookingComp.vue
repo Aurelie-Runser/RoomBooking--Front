@@ -2,6 +2,30 @@
 import type { BookingDto } from '@/domain/models/Booking'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
+import { ref } from 'vue'
+
+function cardColor(booking: BookingDto) {
+  const dateFrom = new Date(booking.day + 'T' + booking.timeFrom)
+  const dateTo = new Date(booking.day + 'T' + booking.timeTo)
+  const today = new Date()
+  const color = ref('cyan')
+
+  if (booking.statut.toLowerCase() == 'annuler') {
+    color.value = 'red'
+  } else if (booking.statut.toLowerCase() == 'terminer') color.value = 'blue'
+  else if (dateFrom.getDay() == today.getDay()) {
+    if (
+      dateFrom.getTime() <= today.getTime() &&
+      today.getTime() < dateTo.getTime()
+    ) {
+      color.value = 'amber'
+    } else {
+      color.value = 'purple'
+    }
+  }
+
+  return `bg-${color.value}-50 hover:bg-${color.value}-100`
+}
 
 defineProps<{
   booking: BookingDto
@@ -11,7 +35,7 @@ defineProps<{
 <template>
   <RouterLink
     :to="`/booking/${booking.id}`"
-    class="block max-w-lg p-2 bg-cyan-50 rounded hover:bg-cyan-100 cursor-pointer"
+    :class="`${cardColor(booking)} block max-w-lg p-2 rounded-md cursor-pointer`"
   >
     <h4 class="w-full text-2xl font-semibold">{{ booking.name }}</h4>
 
