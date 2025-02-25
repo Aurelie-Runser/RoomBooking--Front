@@ -4,14 +4,11 @@ import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import type { newBooking } from '@/domain/models/Booking'
 import type { NewEquipment } from '@/domain/models/Equipment'
 import type { Users } from '@/domain/models/User'
-import {
-  AddBooking,
-  GetAvailableStartHours,
-} from '@/domain/services/bookingService'
+import { AddBooking } from '@/domain/services/bookingService'
 import { GetAvailableEquipments } from '@/domain/services/equipmentService'
 import { GetUsers } from '@/domain/services/userService'
-import { generateEndHours } from '@/infrastructure/utils/generateEndHours'
-import { onMounted, ref, watch } from 'vue'
+import { useAvailableHours } from '@/application/vue/composables/useAvailableHours'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -35,9 +32,6 @@ const booking = ref<newBooking>({
   timeFrom: '',
   timeTo: '',
 })
-
-const availableStartHours = ref<string[]>([])
-const availableEndHours = ref<string[]>([])
 
 const users = ref<Users[]>()
 const guests = ref<number[]>([])
@@ -76,6 +70,11 @@ const addBookingFunction = async () => {
   loading.value = false
 }
 
+const { availableStartHours, availableEndHours } = useAvailableHours(
+  booking.value,
+  roomId,
+)
+
 function toggleGuest(userId: number) {
   const index = guests.value.indexOf(userId)
 
@@ -97,44 +96,6 @@ function toggleEquipment(eq: string) {
     equipmentsForBooking.value.splice(index, 1)
   }
 }
-
-watch(
-  () => booking.value.day,
-  async newDate => {
-    if (!newDate) return
-
-    try {
-      availableStartHours.value = await GetAvailableStartHours(roomId, newDate)
-
-      availableEndHours.value = generateEndHours(
-        availableStartHours.value,
-        booking.value.timeFrom,
-      )
-    } catch (error) {
-      console.error(
-        'Erreur lors de la récupération des heures de début :',
-        error,
-      )
-      addError.value = error
-    }
-  },
-)
-
-watch(
-  () => booking.value.timeFrom,
-  async newTime => {
-    if (!newTime || !booking.value.day || !booking.value.idRoom) return
-
-    try {
-      availableEndHours.value = generateEndHours(
-        availableStartHours.value,
-        booking.value.timeFrom,
-      )
-    } catch (error) {
-      console.error('Erreur lors de la génération des heures de fin :', error)
-    }
-  },
-)
 
 const getEquipment = (materiel: string): NewEquipment => {
   return (
