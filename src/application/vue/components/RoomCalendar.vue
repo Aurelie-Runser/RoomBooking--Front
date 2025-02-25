@@ -13,6 +13,11 @@ const selectedDateBookings = ref<BookingDto[]>([])
 
 onMounted(async () => {
   try {
+    const todayFormatted = format(new Date(), 'yyyy-MM-dd')
+    const element = document.querySelector(
+      `[month='${todayFormatted}']`,
+    ) as HTMLElement | null
+    element?.click()
     bookings.value = await GetBookingsRoom(props.roomId)
   } catch (error) {
     console.error('Error fetching bookings:', error)

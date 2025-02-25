@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
-import { ref, onMounted, watch } from 'vue'
-import type { Users } from '@/domain/models/User'
-import type { NewEquipment } from '@/domain/models/Equipment'
+import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
+import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import type { newBooking } from '@/domain/models/Booking'
-import { GetUsers } from '@/domain/services/userService'
-import { GetAvailableEquipments } from '@/domain/services/equipmentService'
+import type { NewEquipment } from '@/domain/models/Equipment'
+import type { Users } from '@/domain/models/User'
 import {
   AddBooking,
   GetAvailableStartHours,
 } from '@/domain/services/bookingService'
+import { GetAvailableEquipments } from '@/domain/services/equipmentService'
+import { GetUsers } from '@/domain/services/userService'
 import { generateEndHours } from '@/infrastructure/utils/generateEndHours'
-import ErrorMessage from '@/application/vue/components/ErrorMessageComp.vue'
-import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
+const roomId = Number(route.params.id)
 
 const today = new Date()
 const dateToday =
@@ -29,7 +30,7 @@ const loading = ref(false)
 const booking = ref<newBooking>({
   name: '',
   description: '',
-  idRoom: Number(route.params.id),
+  idRoom: roomId,
   day: '',
   timeFrom: '',
   timeTo: '',
@@ -100,13 +101,10 @@ function toggleEquipment(eq: string) {
 watch(
   () => booking.value.day,
   async newDate => {
-    if (!newDate || !booking.value.idRoom) return
+    if (!newDate) return
 
     try {
-      availableStartHours.value = await GetAvailableStartHours(
-        booking.value.idRoom,
-        newDate,
-      )
+      availableStartHours.value = await GetAvailableStartHours(roomId, newDate)
 
       availableEndHours.value = generateEndHours(
         availableStartHours.value,
@@ -117,9 +115,9 @@ watch(
         'Erreur lors de la récupération des heures de début :',
         error,
       )
+      addError.value = error
     }
   },
-  { immediate: true },
 )
 
 watch(
