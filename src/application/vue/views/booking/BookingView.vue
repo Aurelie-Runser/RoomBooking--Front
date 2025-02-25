@@ -121,9 +121,9 @@ const canCancelBooking = () => {
               :disabled="cancelLoading"
               class="px-4 py-2 bg-red-200 hover:bg-red-300 rounded-md disabled:opacity-50"
             >
-              <span class="font-bold text-red-700"
-                >Annuler cette réservation</span
-              >
+              <span class="font-bold text-red-700">
+                Annuler cette réservation
+              </span>
             </button>
           </div>
 

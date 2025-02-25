@@ -269,7 +269,7 @@ const getEquipment = (materiel: string): NewEquipment => {
 
     <IconLoading v-else />
 
-    <div v-if="addError.length > 0">
+    <div v-if="addError" class="col-span-full mx-auto">
       <ErrorMessage>{{ addError }}</ErrorMessage>
     </div>
   </form>
