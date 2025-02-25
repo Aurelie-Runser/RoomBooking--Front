@@ -1,10 +1,10 @@
-# Room Booking - Projet Ynov M1 Web
+# Room Booking Frontend - Projet Ynov M1 Web
 
 ## par - [Alixan Balu](https://github.com/Alixanb) et - [Aurélie Runser](https://github.com/Aurelie-Runser)
 
 > Lien vers le repos du backend : https://github.com/Aurelie-Runser/RoomBooking--Back
 
-## Build et Lancement du Projet
+## Comment faire tourner le Projet
 
 ### Cloner le projet
 
@@ -25,9 +25,13 @@ Afin de télécharger les packages nécessaires au bon fonctionnement du projet,
 npm i
 ```
 
-### Lancer le projet
+### Build le projet
 
-Vous pouvez lancer le projet avec la commande suivante :
+```
+npm run build
+```
+
+### Lancer le projet
 
 ```
 npm run dev
