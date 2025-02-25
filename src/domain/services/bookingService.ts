@@ -119,3 +119,22 @@ export async function GetBookingsRoom(roomId: number) {
     )
   }
 }
+
+export async function CancelBooking(id: number) {
+  try {
+    const token = localStorage.getItem('jwtToken')
+    const response = await apiClient.delete(`/booking/cancel/${id}`, {
+      params: {
+        token,
+      },
+    })
+    return response.data.message
+  } catch (error) {
+    console.error("Erreur lors de l'annulation de la réservation :", error)
+    throw (
+      error?.response?.data?.message ||
+      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      "Erreur lors de l'annulation de la réservation"
+    )
+  }
+}
