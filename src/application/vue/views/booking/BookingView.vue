@@ -98,6 +98,11 @@ const canCancelBooking = () => {
             >
           </p>
 
+          <div>
+            <p>Description :</p>
+            <p>{{ booking.description }}</p>
+          </div>
+
           <p>Participants :</p>
           <ul class="list-disc">
             <li
