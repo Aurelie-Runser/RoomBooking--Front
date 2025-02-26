@@ -34,9 +34,7 @@ onMounted(async () => {
 
 <template>
   <main v-if="!loading">
-    <RouterLink to="/rooms-list" class="hover:text-blue-700">
-      &lt; Retourner à la liste des salles
-    </RouterLink>
+    <span class="block w-full text-center text-sm text-gray-600">Salle</span>
 
     <div v-if="room && roomFind">
       <h1>

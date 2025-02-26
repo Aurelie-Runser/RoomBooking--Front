@@ -66,64 +66,60 @@ const canCancelBooking = () => {
 
 <template>
   <main v-if="!loading">
+    <span class="block w-full text-center text-sm text-gray-600">
+      Réservation
+    </span>
     <div v-if="booking && bookingFound">
       <h1 class="text-4xl font-bold text-center my-4">
         {{ booking.name }}
       </h1>
 
-      <div class="flex flex-wrap gap-4">
-        <div class="max-w-full flex flex-col gap-2">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4"
+      >
+        <div class="flex flex-col gap-2">
+          <h2>Informations</h2>
+
           <p>
             Salle :
-            <RouterLink :to="`/room/${booking.idRoom}`" class="text-blue-700">
+            <RouterLink
+              :to="`/room/${booking.idRoom}`"
+              class="text-blue-700 p-2 bg-blue-100 rounded-md hover:bg-blue-300 hover:text-blue-900"
+            >
               {{ booking.roomName }}
             </RouterLink>
           </p>
           <p>
-            Organisateur : {{ booking.organizerLastname }}
-            {{ booking.organizerFirstname }}
+            Organisateur :
+            <span class="text-blue-700">
+              {{ booking.organizerLastname }} {{ booking.organizerFirstname }}
+            </span>
           </p>
           <p>
-            Jour : {{ format(booking.day, 'dd MMMM yyyy', { locale: fr }) }}
+            Horaire :
+            <span class="text-blue-700">
+              {{ format(booking.day, 'dd MMMM yyyy', { locale: fr }) }}</span
+            >
+            de <span class="text-blue-700">{{ booking.timeFrom }}</span> à
+            <span class="text-blue-700">{{ booking.timeTo }} </span>
           </p>
-          <p>Heure de début : {{ booking.timeFrom }}</p>
-          <p>Heure de fin : {{ booking.timeTo }}</p>
           <p>
             Statut :
             <span
               :class="
-                booking.statut === 'Annuler' ? 'text-red-600 font-semibold' : ''
+                booking.statut === 'Annuler'
+                  ? 'text-red-600 font-semibold'
+                  : 'text-blue-700'
               "
-              >{{ booking.statut }}</span
             >
+              {{ booking.statut }}
+            </span>
           </p>
 
-          <div>
-            <p>Description :</p>
-            <p>{{ booking.description }}</p>
+          <div v-if="booking.description.lenght > 0">
+            <p>Description</p>
+            <p class="text-blue-700">{{ booking.description }}</p>
           </div>
-
-          <p>Participants :</p>
-          <ul class="list-disc">
-            <li
-              class="list-inside"
-              v-for="(g, index) in booking.guestsName"
-              :key="index"
-            >
-              {{ g }}
-            </li>
-          </ul>
-
-          <p>Equipements réservés :</p>
-          <ul class="list-disc">
-            <li
-              class="list-inside"
-              v-for="(e, index) in booking.equipmentsList"
-              :key="index"
-            >
-              {{ e.number }} {{ e.materiel }}
-            </li>
-          </ul>
 
           <div class="mt-6" v-if="canCancelBooking()">
             <button
@@ -147,6 +143,35 @@ const canCancelBooking = () => {
 
           <div v-if="cancelError" class="mt-4">
             <ErrorMessage>{{ cancelError }}</ErrorMessage>
+          </div>
+        </div>
+
+        <div>
+          <h2>Participants</h2>
+          <ul class="list-disc">
+            <li
+              class="list-inside"
+              v-for="(g, index) in booking.guestsName"
+              :key="index"
+            >
+              {{ g }}
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>Equipements</h2>
+          <ul v-if="booking.equipmentsList.lenght > 0" class="list-disc">
+            <li
+              class="list-inside"
+              v-for="(e, index) in booking.equipmentsList"
+              :key="index"
+            >
+              {{ e.number }} {{ e.materiel }}
+            </li>
+          </ul>
+          <div v-else>
+            <p>Aucun équipement réservé.</p>
           </div>
         </div>
       </div>
