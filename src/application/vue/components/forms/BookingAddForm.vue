@@ -5,6 +5,7 @@ import type { newBooking } from '@/domain/models/Booking'
 import type { NewEquipment } from '@/domain/models/Equipment'
 import type { Users } from '@/domain/models/User'
 import { AddBooking } from '@/domain/services/bookingService'
+import { GetRoomsShort } from '@/domain/services/roomService'
 import { GetAvailableEquipments } from '@/domain/services/equipmentService'
 import { GetUsers } from '@/domain/services/userService'
 import { useAvailableHours } from '@/application/vue/composables/useAvailableHours'
@@ -37,6 +38,7 @@ const users = ref<Users[]>()
 const guests = ref<number[]>([])
 const equipments = ref<string[]>()
 const equipmentsForBooking = ref<NewEquipment[]>([])
+const rooms = ref([])
 
 const addError = ref<string>('')
 
@@ -44,6 +46,7 @@ onMounted(async () => {
   try {
     users.value = await GetUsers()
     equipments.value = await GetAvailableEquipments()
+    rooms.value = await GetRoomsShort()
   } catch (error) {
     addError.value = error
   }
@@ -125,7 +128,16 @@ const getEquipment = (materiel: string): NewEquipment => {
         ></textarea>
       </div>
 
-      <div class="col-span-full my-input">
+      <div class="my-input">
+        <label for="date">Salle *</label>
+        <select v-model="booking.idRoom" id="timeFrom" required class="border">
+          <option v-for="room in rooms" :key="room.id" :value="room.id">
+            {{ room.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="full my-input">
         <label for="date">Jour *</label>
         <input
           type="date"

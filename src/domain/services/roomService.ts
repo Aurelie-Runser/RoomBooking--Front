@@ -19,6 +19,22 @@ export async function GetRooms() {
   }
 }
 
+export async function GetRoomsShort() {
+  try {
+    const response = await apiClient.get('/room/short')
+    console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error('Erreur lors de la récupération des salles :', error)
+    throw (
+      error?.response?.data?.message ||
+      (error?.response?.data?.errors &&
+        Object.values(error.response.data.errors).flat().join('. ')) ||
+      'Erreur lors de la récupération des salles'
+    )
+  }
+}
+
 export async function GetRoomById(id: number) {
   try {
     const response = await apiClient.get(`/room/${id}`)

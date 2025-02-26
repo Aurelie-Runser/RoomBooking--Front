@@ -161,7 +161,7 @@ const canCancelBooking = () => {
 
         <div>
           <h2>Equipements</h2>
-          <ul v-if="booking.equipmentsList.lenght > 0" class="list-disc">
+          <ul v-if="booking.equipmentsList.length > 0" class="list-disc">
             <li
               class="list-inside"
               v-for="(e, index) in booking.equipmentsList"

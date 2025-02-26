@@ -6,6 +6,7 @@ import type { BookingDto } from '@/domain/models/Booking'
 import type { NewEquipment } from '@/domain/models/Equipment'
 import type { Users } from '@/domain/models/User'
 import { UpdateBooking } from '@/domain/services/bookingService'
+import { GetRoomsShort } from '@/domain/services/roomService'
 import { GetAvailableEquipments } from '@/domain/services/equipmentService'
 import { GetUsers } from '@/domain/services/userService'
 import { onMounted, ref } from 'vue'
@@ -28,6 +29,7 @@ const booking = ref<BookingDto>({ ...props.bookingProps })
 
 const users = ref<Users[]>()
 const guests = ref<number[]>([])
+const rooms = ref([])
 const equipments = ref<string[]>()
 const equipmentsForBooking = ref<NewEquipment[]>([])
 
@@ -42,6 +44,7 @@ onMounted(async () => {
   try {
     users.value = await GetUsers()
     equipments.value = await GetAvailableEquipments()
+    rooms.value = await GetRoomsShort()
 
     equipmentsForBooking.value = booking.value.equipmentsList.map(eq => ({
       materiel: eq.materiel,
@@ -126,14 +129,14 @@ const getEquipment = (materiel: string): NewEquipment => {
         ></textarea>
       </div>
 
-      <!-- <div class="my-input">
+      <div class="my-input">
         <label for="date">Salle *</label>
         <select v-model="booking.idRoom" id="timeFrom" required class="border">
-          <option v-for="hour in availableStartHours" :key="hour" :value="hour">
-            {{ hour }}
+          <option v-for="room in rooms" :key="room.id" :value="room.id">
+            {{ room.name }}
           </option>
         </select>
-      </div> -->
+      </div>
 
       <div class="my-input">
         <label for="date">Jour *</label>
@@ -177,7 +180,7 @@ const getEquipment = (materiel: string): NewEquipment => {
     <div>
       <h2>Renseignez les participants</h2>
       <div class="flex flex-wrap gap-6">
-        <label v-for="user in users" :key="user.id">
+        <label v-for="user in users" :key="user.id" class="cursor-pointer">
           <input
             type="checkbox"
             :value="user.id"
@@ -190,13 +193,13 @@ const getEquipment = (materiel: string): NewEquipment => {
     </div>
 
     <div class="grid grid-cols-1">
-      <h2>Choisisez vos équipements si besoin</h2>
+      <h2>Choisissez vos équipements si besoin</h2>
       <div
         v-for="(eq, index) in equipments"
         :key="index"
         class="flex justify-between my-1"
       >
-        <label>
+        <label class="cursor-pointer">
           <input
             type="checkbox"
             :value="eq"
@@ -221,31 +224,26 @@ const getEquipment = (materiel: string): NewEquipment => {
       </div>
     </div>
 
-    <button
-      v-if="!loading"
-      type="submit"
-      class="col-span-full w-60 mx-auto p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
-    >
-      Enregistrer les modifications
-    </button>
-
-    <IconLoading v-else />
-
-    <div v-if="updateSucces">
-      <SuccessMessage>
-        {{ updateSucces }}
-      </SuccessMessage>
-
-      <RouterLink
-        to="/profil"
-        class="block w-fit text-center mx-auto p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
+    <div class="col-span-full">
+      <button
+        v-if="!loading"
+        type="submit"
+        class="block w-60 mx-auto p-4 bg-blue-200 hover:bg-blue-300 rounded-md"
       >
-        Retourner à mon profil
-      </RouterLink>
-    </div>
+        Enregistrer les modifications
+      </button>
 
-    <div v-if="updateError.length > 0" class="col-span-full mx-auto">
-      <ErrorMessage>{{ updateError }}</ErrorMessage>
+      <IconLoading v-else />
+
+      <div v-if="updateSucces" class="mx-auto w-fit">
+        <SuccessMessage>
+          {{ updateSucces }}
+        </SuccessMessage>
+      </div>
+
+      <div v-if="updateError.length > 0" class="col-span-full mx-auto">
+        <ErrorMessage>{{ updateError }}</ErrorMessage>
+      </div>
     </div>
   </form>
 </template>
