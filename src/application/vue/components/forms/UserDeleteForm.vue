@@ -29,8 +29,10 @@ const deleteUserFunction = async () => {
     const timer = setInterval(() => {
       timerNumber.value -= 1
       if (timerNumber.value <= 0) {
+        localStorage.removeItem('jwtToken')
+        localStorage.removeItem('isAdmin')
+        router.push('/register')
         clearInterval(timer)
-        LogoutFunction()
       }
     }, 1000)
   } catch (error) {
@@ -38,11 +40,6 @@ const deleteUserFunction = async () => {
   }
 
   loading.value = false
-}
-
-const LogoutFunction = () => {
-  localStorage.removeItem('jwtToken')
-  router.push('/')
 }
 </script>
 

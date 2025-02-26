@@ -116,7 +116,7 @@ const canCancelBooking = () => {
             </span>
           </p>
 
-          <div v-if="booking.description.lenght > 0">
+          <div v-if="booking.description.length > 0">
             <p>Description</p>
             <p class="text-blue-700">{{ booking.description }}</p>
           </div>
