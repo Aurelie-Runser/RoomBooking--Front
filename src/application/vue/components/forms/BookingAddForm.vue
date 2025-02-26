@@ -175,7 +175,7 @@ const getEquipment = (materiel: string): NewEquipment => {
     <div>
       <h2>Renseignez les participants</h2>
       <div class="flex flex-wrap gap-6">
-        <label v-for="user in users" :key="user.id">
+        <label v-for="user in users" :key="user.id" class="cursor-pointer">
           <input
             type="checkbox"
             :value="user.id"
@@ -188,13 +188,13 @@ const getEquipment = (materiel: string): NewEquipment => {
     </div>
 
     <div class="grid grid-cols-1">
-      <h2>Choisisez vos équipements si besoin</h2>
+      <h2>Choisissez vos équipements si besoin</h2>
       <div
         v-for="(eq, index) in equipments"
         :key="index"
         class="flex justify-between my-1"
       >
-        <label>
+        <label class="cursor-pointer">
           <input
             type="checkbox"
             :value="eq"
