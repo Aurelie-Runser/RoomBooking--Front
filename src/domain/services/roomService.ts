@@ -12,7 +12,8 @@ export async function GetRooms() {
     console.error('Erreur lors de la récupération des salles :', error)
     throw (
       error?.response?.data?.message ||
-      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      (error?.response?.data?.errors &&
+        Object.values(error.response.data.errors).flat().join('. ')) ||
       'Erreur lors de la récupération des salles'
     )
   }
@@ -26,7 +27,8 @@ export async function GetRoomById(id: number) {
     console.error('Erreur lors de la récupération de la salle :', error)
     throw (
       error?.response?.data?.message ||
-      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      (error?.response?.data?.errors &&
+        Object.values(error.response.data.errors).flat().join('. ')) ||
       'Erreur lors de la récupération de la salle'
     )
   }
@@ -40,7 +42,8 @@ export async function AddRoom(addRoomRequest: updateRoomRequestModel) {
     console.error('Erreur lors de la création de la salle :', error)
     throw (
       error?.response?.data?.message ||
-      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      (error?.response?.data?.errors &&
+        Object.values(error.response.data.errors).flat().join('. ')) ||
       'Erreur lors de la création de la salle. Vérifier tous les champs obligatoires'
     )
   }
@@ -54,7 +57,8 @@ export async function UpdateRoom(updateRoomRequest: updateRoomRequestModel) {
     console.error('Erreur lors de la modification de la salle :', error)
     throw (
       error?.response?.data?.message ||
-      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      (error?.response?.data?.errors &&
+        Object.values(error.response.data.errors).flat().join('. ')) ||
       'Erreur lors de la modification de la salle'
     )
   }
@@ -73,7 +77,8 @@ export async function DeleteRoom(deleteRoomRequest: deleteRoomRequestModel) {
     console.error('Erreur lors de la suppression de la salle :', error)
     throw (
       error?.response?.data?.message ||
-      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      (error?.response?.data?.errors &&
+        Object.values(error.response.data.errors).flat().join('. ')) ||
       'Erreur lors de la suppression de la salle'
     )
   }
@@ -90,7 +95,8 @@ export async function GetRoomGroupe() {
     )
     throw (
       error?.response?.data?.message ||
-      Object.values(error?.response?.data?.errors).flat().join('. ') ||
+      (error?.response?.data?.errors &&
+        Object.values(error.response.data.errors).flat().join('. ')) ||
       'Erreur lors de la récupération des groupes de salle'
     )
   }

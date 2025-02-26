@@ -8,12 +8,13 @@ const apiClient = axios.create({
 })
 
 // ajout du token à la requete si user connecté
-apiClient.interceptors.request.use(config => {
-  const token = localStorage.getItem('jwtToken')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
+// Inutilisé (token passer directement de le corps des requetes)
+// apiClient.interceptors.request.use(config => {
+//   const token = localStorage.getItem('jwtToken')
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`
+//   }
+//   return config
+// })
 
 export default apiClient
