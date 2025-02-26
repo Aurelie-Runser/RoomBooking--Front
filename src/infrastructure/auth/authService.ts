@@ -1,10 +1,9 @@
-import type { loginRequestModel } from '@/domain/models/loginRequestModel'
-import type { registerRequestModel } from '@/domain/models/registerRequestModel'
+import type { LoginModel, RegisterModel } from '@/domain/models/Auth'
 import apiClient from '@/infrastructure/utils/apiClient'
 
-export async function Register(registerRequest: registerRequestModel) {
+export async function Register(registerRequest: RegisterModel) {
   try {
-    const response = await apiClient.post('/user', registerRequest)
+    const response = await apiClient.post('/auth/register', registerRequest)
 
     const token = response.data.token
     const isAdmin = response.data.isAdmin
@@ -17,9 +16,9 @@ export async function Register(registerRequest: registerRequestModel) {
   }
 }
 
-export async function Login(loginRequest: loginRequestModel) {
+export async function Login(loginRequest: LoginModel) {
   try {
-    const response = await apiClient.post('/user/login', loginRequest)
+    const response = await apiClient.post('/auth/login', loginRequest)
 
     const token = response.data.token
     const isAdmin = response.data.isAdmin
@@ -34,7 +33,7 @@ export async function Login(loginRequest: loginRequestModel) {
 
 export async function GetProfil(token: string) {
   try {
-    const response = await apiClient.get('/user/profil/' + token)
+    const response = await apiClient.get('/auth/' + token)
     return response.data
   } catch (error) {
     console.error(

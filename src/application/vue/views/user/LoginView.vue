@@ -2,13 +2,13 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Login } from '@/infrastructure/auth/authService'
-import type { loginRequestModel } from '@/domain/models/loginRequestModel'
+import type { LoginModel } from '@/domain/models/Auth'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import ErrorMessage from '../../components/ErrorMessageComp.vue'
 
 const router = useRouter()
 
-const loginRequest = ref<loginRequestModel>({
+const loginRequest = ref<LoginModel>({
   email: '',
   password: '',
 })

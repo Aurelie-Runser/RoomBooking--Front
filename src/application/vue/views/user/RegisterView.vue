@@ -2,13 +2,13 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Register } from '@/infrastructure/auth/authService'
-import type { registerRequestModel } from '@/domain/models/registerRequestModel'
+import type { RegisterModel } from '@/domain/models/Auth'
 import IconLoading from '@/application/vue/components/icons/IconLoading.vue'
 import ErrorMessage from '../../components/ErrorMessageComp.vue'
 
 const router = useRouter()
 
-const registerRequest = ref<registerRequestModel>({
+const registerRequest = ref<RegisterModel>({
   lastname: '',
   firstname: '',
   email: '',
